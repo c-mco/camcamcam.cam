@@ -1,0 +1,100 @@
+personal:
+  name: "Cam McOrist"
+  title: "Quality Engineer & Leader"
+  location: "Melbourne, Australia"
+  citizenship: "Australian Citizen"
+  phone: "+61 0423 830 445"
+  email: "cam@camcamcam.cam"
+  website: "https://camcamcam.cam"
+  summary: >-
+    Quality Engineer and Leader with over 15 years of experience, delivering modern testing to improve quality and mitigate risk. Long track record of establishing and sustaining a quality culture across technology teams. Strategising testing efforts based on real risk and real pain-points, by collaborating with various function leads and stakeholders. A hands-on engineer, skilled in designing and building scalable Test Automation frameworks from the ground up and integrating automated testing seamlessly into CI/CD pipelines. An advocate for accessibility, quality, and inclusivity.
+
+highlights:
+  - metric: "15+"
+    label: "Years Engineering Experience"
+  - metric: "1 Day"
+    label: "Saved per 2-Week Sprint at Aesop"
+  - metric: "10M+"
+    label: "Records Validated with Genie AI"
+  - metric: "WCAG AA"
+    label: "Accessibility Compliance Champion"
+
+leadershipExperience:
+  - role: "Lead Test Automation Engineer"
+    company: "Aesop"
+    industry: "Skincare Retail"
+    period: "April 2022 - June 2026"
+    location: "Melbourne, Australia"
+    achievements:
+      - title: "Test Strategy & CI/CD Governance"
+        description: "Evolved the testing strategy across retail digital initiatives, building entire new Cypress & Playwright test frameworks in TypeScript and NodeJS from the ground up, integrating them with CI/CD pipelines across GitHub, Jenkins and various AWS services. Implemented quality gates including static code quality checks and AI reviews in GitHub, reducing release times by a full day of previous hands-on QA work for every 2 week sprint."
+        tags: ["Playwright", "Cypress", "TypeScript", "NodeJS", "CI/CD", "AWS", "GitHub Actions"]
+      - title: "E2E Retail, Checkout & Portal Validation"
+        description: "Managed the E2E testing suite and defect management for customer journey initiatives, validated the shopping experience, world-wide customer address/profile management and secure payment processing. Experimented heavily with the use of GitHub Copilot and Claude Code to increase test coverage and to uplift test quality."
+        tags: ["E2E Testing", "Checkout", "Payments", "Claude Code", "GitHub Copilot"]
+      - title: "SIT & Integration Oversight"
+        description: "Led System Integration Testing efforts across REST and GraphQL APIs, collaborated with business stakeholders and vendors to guarantee data integrity between UI channels and back-end systems - (SAP, NetSuite ERP, Salesforce Marketing Cloud, MuleSoft)."
+        tags: ["REST", "GraphQL", "SAP", "NetSuite ERP", "Salesforce Marketing Cloud", "MuleSoft"]
+      - title: "Data migration & AI uplift"
+        description: "With Databricks, Python, SQL and Parquet, Implemented the first AI assisted testing initiatives by utilising the new Databricks Genie AI to design, implement and validate complicated data migration testing of tens of millions of private customer records, involving names, addresses and purchase history from various global Aesop sources for uptake into regional L'Oréal systems."
+        tags: ["Databricks Genie AI", "Python", "SQL", "Parquet", "L'Oréal Systems"]
+      - title: "Quality Culture"
+        description: "Ran workshops on JavaScript/TypeScript and Cypress to upskill two manual testers, presented a series of ‘Shift Left’ presentations at internal QA Conference Days to other testers, Developers, BA, PO and leadership."
+        tags: ["Shift Left", "Workshops", "Mentorship", "Quality Culture"]
+
+  - role: "QA Lead"
+    company: "Stargate Tech"
+    industry: "Well Home Loans"
+    period: "August 2015 - April 2022"
+    location: "Melbourne, Australia"
+    achievements:
+      - title: "Fintech Product Launch"
+        description: "Led and created the Test Strategy for the greenfield launch of the Direct-to-Consumer Well Home Loans digital lending platform, validating the online home loan application portal, borrowing calculator and information site, the SalesForce CRM workflows and LIXI financial standards."
+        tags: ["Fintech", "Greenfield Launch", "SalesForce CRM", "LIXI Standards"]
+      - title: "Test Automation and CI/CD"
+        description: "Designed and built an End-to-End front end automated test framework and test suite, utilising C# / .NET and Selenium WebDriver (alongside Protractor and SpecFlow BDD) integrated into Azure DevOps CI/CD pipelines, reducing regression risk and speeding up deployment cycles from weeks to days."
+        tags: ["C#", ".NET", "Selenium WebDriver", "SpecFlow BDD", "Azure DevOps"]
+      - title: "Broker CRM & Third-Party Bank Integrations"
+        description: "Directed functional, regression, and SOAP/REST API integration testing (SoapUI and Postman) for the Velocity mortgage broker platform, integrating with providers including NextGen ApplyOnline, CoreLogic, Equifax and DocuSign."
+        tags: ["API Testing", "SoapUI", "Postman", "CoreLogic", "Equifax", "DocuSign"]
+      - title: "Leadership"
+        description: "Mentored and managed a team of 3 QA analysts (one on-site, 2 off-shore) - running daily defect triage, release sign-offs, and the migration of test and defect tracking from YouTrack to Azure DevOps."
+        tags: ["Team Leadership", "Defect Triage", "Azure DevOps", "Mentorship"]
+      - title: "Accessibility & Inclusivity"
+        description: "Championed a thorough web accessibility initiative, introducing semantic HTML, keyboard navigation, and screen-reader checks to establish WCAG AA compliance."
+        tags: ["WCAG AA", "Web Accessibility", "Screen Readers", "Semantic HTML"]
+
+previousExperience:
+  period: "2007 – 2015"
+  roles:
+    - role: "Software Tester"
+      company: "BP"
+      description: "Executed manual and exploratory testing for retail POS hardware, fuel pump simulators, and bank payment terminals."
+    - role: "Test Engineer"
+      company: "DBRS Ltd"
+      location: "Toronto"
+      description: "Coordinated UAT and executed backend SQL database validation for core business software."
+    - role: "Software Tester"
+      company: "IMG Sports Technology Group"
+      description: "Established the team's first structured QA process and implemented Jira workflows for national sporting bodies including Cricket Australia and Swimming Australia."
+    - role: "Senior Test Analyst & Test Lead"
+      company: "Touch Networks"
+      description: "Lead a team of 5 testers to deliver transactional POS integrations for major corporate clients including 7-Eleven, ANZ, Westpac, and Commonwealth Bank."
+
+professionalDevelopment:
+  istqbCertifications:
+    - title: "Advanced Level Test Analyst Certificate"
+      year: "2011"
+      issuer: "Disqover / ANZTB"
+    - title: "Foundation Certificate in Software Testing"
+      year: "2010"
+      issuer: "Disqover / ANZTB"
+  technicalSkills:
+    - "Complete Web Development"
+    - "CSS Foundations & Tailwind"
+    - "Deep JavaScript Foundations"
+    - "Website Accessibility (WCAG)"
+    - "React"
+    - "Next.js"
+    - "Full Stack for Front-end Developers (Node.js)"
+    - "Serverless with AWS Lambda"

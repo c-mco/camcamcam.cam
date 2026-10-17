@@ -1,0 +1,171 @@
+---
+import { resume } from '../data/resume';
+import '../styles/global.css';
+
+const { personal, leadershipExperience, previousExperience, professionalDevelopment } = resume;
+const aesopRole = leadershipExperience.find(r => r.company.includes('Aesop'))!;
+const stargateRole = leadershipExperience.find(r => r.company.includes('Stargate'))!;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{personal.name} - Resume</title>
+    <style>
+      @page {
+        size: A4 portrait;
+        margin: 14mm 16mm 14mm 16mm;
+      }
+      body {
+        background: #ffffff;
+        color: #111827;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 9pt;
+        line-height: 1.35;
+      }
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+      .avoid-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-zinc-900 max-w-[210mm] mx-auto p-0">
+    <!-- PAGE 1 -->
+    <div class="min-h-[268mm] flex flex-col justify-between">
+      <div>
+        <!-- Name Header -->
+        <header class="border-b border-zinc-200 pb-3 mb-4">
+          <h1 class="text-3xl font-serif font-bold text-zinc-950 tracking-tight">{personal.name}</h1>
+          <p class="text-[9pt] text-zinc-600 mt-1 flex flex-wrap items-center gap-x-2">
+            <span>{personal.location}</span>
+            <span>•</span>
+            <span>{personal.citizenship}</span>
+            <span>•</span>
+            <span>{personal.phone}</span>
+            <span>•</span>
+            <a href={`mailto:${personal.email}`} class="text-zinc-900 underline underline-offset-2">{personal.email}</a>
+            <span>•</span>
+            <a href={personal.website} class="text-zinc-900 underline underline-offset-2">{personal.website.replace('https://', '')}</a>
+          </p>
+        </header>
+
+        <!-- Summary -->
+        <section class="mb-5">
+          <h2 class="text-[11.5pt] font-serif font-bold text-zinc-950 uppercase tracking-wider border-b border-zinc-200 pb-1 mb-2">Summary</h2>
+          <p class="text-[9pt] text-zinc-800 leading-relaxed text-justify">
+            {personal.summary}
+          </p>
+        </section>
+
+        <!-- Employment History (Aesop) -->
+        <section>
+          <h2 class="text-[11.5pt] font-serif font-bold text-zinc-950 uppercase tracking-wider border-b border-zinc-200 pb-1 mb-3">Employment History</h2>
+
+          <!-- Aesop Role -->
+          <article class="avoid-break">
+            <div class="flex items-baseline justify-between mb-0.5">
+              <h3 class="text-[10.5pt] font-bold text-zinc-950">
+                {aesopRole.role} <span class="font-normal text-zinc-600">— {aesopRole.company} ({aesopRole.industry})</span>
+              </h3>
+              <span class="text-[8.5pt] font-medium font-mono text-zinc-600">{aesopRole.period}</span>
+            </div>
+
+            <div class="space-y-2.5 mt-2.5">
+              {aesopRole.achievements.map((ach) => (
+                <div class="text-[8.8pt] text-zinc-800 leading-snug">
+                  <span class="font-bold text-zinc-950">{ach.title}: </span>
+                  <span>{ach.description}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <!-- Footer for Page 1 -->
+      <div class="text-[7.5pt] text-zinc-400 font-mono flex justify-between border-t border-zinc-100 pt-2 mt-4">
+        <span>{personal.name} • Resume</span>
+        <span>Page 1 of 2</span>
+      </div>
+    </div>
+
+    <!-- PAGE BREAK -->
+    <div class="page-break"></div>
+
+    <!-- PAGE 2 -->
+    <div class="min-h-[268mm] flex flex-col justify-between pt-2">
+      <div>
+        <!-- Stargate Tech Role -->
+        <section class="mb-5">
+          <article class="avoid-break">
+            <div class="flex items-baseline justify-between mb-0.5">
+              <h3 class="text-[10.5pt] font-bold text-zinc-950">
+                {stargateRole.role} <span class="font-normal text-zinc-600">— {stargateRole.company} ({stargateRole.industry})</span>
+              </h3>
+              <span class="text-[8.5pt] font-medium font-mono text-zinc-600">{stargateRole.period}</span>
+            </div>
+
+            <div class="space-y-2.5 mt-2.5">
+              {stargateRole.achievements.map((ach) => (
+                <div class="text-[8.8pt] text-zinc-800 leading-snug">
+                  <span class="font-bold text-zinc-950">{ach.title}: </span>
+                  <span>{ach.description}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+
+        <!-- Previous Experience -->
+        <section class="mb-5 avoid-break">
+          <h2 class="text-[11.5pt] font-serif font-bold text-zinc-950 uppercase tracking-wider border-b border-zinc-200 pb-1 mb-2.5">
+            Previous Experience ({previousExperience.period})
+          </h2>
+          <div class="space-y-2">
+            {previousExperience.roles.map((prev) => (
+              <div class="text-[8.8pt] text-zinc-800 leading-snug">
+                <span class="font-bold text-zinc-950">{prev.role} | {prev.company}{prev.location ? ` (${prev.location})` : ''}: </span>
+                <span>{prev.description}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Professional Development & Certifications -->
+        <section class="avoid-break">
+          <h2 class="text-[11.5pt] font-serif font-bold text-zinc-950 uppercase tracking-wider border-b border-zinc-200 pb-1 mb-2.5">
+            Professional Development & Certifications
+          </h2>
+
+          <div class="space-y-2 text-[8.8pt] text-zinc-800">
+            <div>
+              <span class="font-bold text-zinc-950">ISTQB Certifications: </span>
+              <span>
+                {professionalDevelopment.istqbCertifications.map(c => `${c.title} (${c.year}) – ${c.issuer}`).join(' • ')}
+              </span>
+            </div>
+
+            <div>
+              <span class="font-bold text-zinc-950">Technical Skill Expansion: </span>
+              <span>
+                {professionalDevelopment.technicalSkills.join(', ')}.
+              </span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer for Page 2 -->
+      <div class="text-[7.5pt] text-zinc-400 font-mono flex justify-between border-t border-zinc-100 pt-2 mt-4">
+        <span>{personal.name} • {personal.website.replace('https://', '')}</span>
+        <span>Page 2 of 2</span>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,372 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { resume } from '../data/resume';
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Globe,
+  Download,
+  FileText,
+  Printer,
+  Award,
+  Sparkles,
+  CheckCircle2,
+  Calendar,
+  ExternalLink,
+  Cpu,
+  Layers,
+  ArrowUpRight,
+} from '@lucide/astro';
+
+const { personal, highlights, leadershipExperience, previousExperience, professionalDevelopment } = resume;
+---
+
+<Layout>
+  <!-- HERO SECTION -->
+  <section class="py-6 sm:py-10 border-b border-parchment-300/70 dark:border-zinc-800">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+      <div class="space-y-4 max-w-2xl">
+        <!-- Live status badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-800/60">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>{personal.location} • {personal.citizenship}</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-serif font-bold text-ink-900 dark:text-[#F8F6F0] tracking-tight leading-[1.08]">
+          {personal.name}
+        </h1>
+
+        <p class="text-xl sm:text-2xl font-serif italic text-aesop-amber dark:text-amber-400">
+          {personal.title}
+        </p>
+
+        <!-- Contact Pills -->
+        <div class="flex flex-wrap gap-y-2 gap-x-4 pt-2 text-sm text-ink-600 dark:text-zinc-400">
+          <a
+            href={`mailto:${personal.email}`}
+            class="inline-flex items-center gap-1.5 hover:text-ink-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+          >
+            <Mail class="w-4 h-4 text-aesop-copper" />
+            <span>{personal.email}</span>
+          </a>
+
+          <a
+            href={`tel:${personal.phone.replace(/\s+/g, '')}`}
+            class="inline-flex items-center gap-1.5 hover:text-ink-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+          >
+            <Phone class="w-4 h-4 text-aesop-copper" />
+            <span>{personal.phone}</span>
+          </a>
+
+          <a
+            href={personal.website}
+            class="inline-flex items-center gap-1.5 hover:text-ink-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+          >
+            <Globe class="w-4 h-4 text-aesop-copper" />
+            <span>{personal.website.replace('https://', '')}</span>
+          </a>
+
+          <span class="inline-flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400">
+            <MapPin class="w-4 h-4 text-aesop-copper" />
+            <span>{personal.location}</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Action Box: Direct Document Downloads -->
+      <div class="bg-parchment-200/70 dark:bg-zinc-900/90 p-5 rounded-2xl border border-parchment-300 dark:border-zinc-800 shadow-sm flex flex-col gap-3 min-w-[280px]">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+            Resume Downloads
+          </span>
+          <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-mono">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Synced
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <a
+            href="/resume.pdf"
+            download="Cam McOrist - Resume.pdf"
+            class="group flex flex-col items-center justify-center p-3 rounded-xl bg-ink-900 text-parchment-100 dark:bg-zinc-100 dark:text-zinc-950 hover:bg-aesop-amber dark:hover:bg-amber-400 hover:text-white dark:hover:text-ink-900 transition-all text-center shadow-sm"
+          >
+            <div class="flex items-center gap-1.5 font-medium text-sm">
+              <Download class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+              <span>PDF</span>
+            </div>
+            <span class="text-[10px] opacity-75 mt-0.5 font-mono">Vector Print</span>
+          </a>
+
+          <a
+            href="/resume.docx"
+            download="Cam McOrist - Resume.docx"
+            class="group flex flex-col items-center justify-center p-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 text-zinc-900 dark:text-zinc-100 transition-all text-center shadow-sm"
+          >
+            <div class="flex items-center gap-1.5 font-medium text-sm">
+              <FileText class="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:-translate-y-0.5 transition-transform" />
+              <span>Word</span>
+            </div>
+            <span class="text-[10px] text-zinc-500 dark:text-zinc-400 mt-0.5 font-mono">ATS-Ready</span>
+          </a>
+        </div>
+
+        <a
+          href="/print"
+          target="_blank"
+          class="flex items-center justify-center gap-2 py-1.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-ink-900 dark:hover:text-white transition-colors"
+        >
+          <Printer class="w-3.5 h-3.5" />
+          <span>Open Clean Print Version</span>
+          <ArrowUpRight class="w-3 h-3 opacity-60" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY METRIC HIGHLIGHTS -->
+  <section class="py-8 border-b border-parchment-300/70 dark:border-zinc-800">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {highlights.map((item) => (
+        <div class="p-4 rounded-xl bg-parchment-50/70 dark:bg-zinc-900/50 border border-parchment-300/60 dark:border-zinc-800 transition-all hover:border-aesop-amber/40">
+          <div class="font-serif text-3xl sm:text-4xl font-bold text-ink-900 dark:text-zinc-100 tracking-tight">
+            {item.metric}
+          </div>
+          <div class="text-xs sm:text-sm text-ink-600 dark:text-zinc-400 mt-1 font-medium leading-snug">
+            {item.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="summary" class="py-10 border-b border-parchment-300/70 dark:border-zinc-800">
+    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
+      <div class="md:w-1/4">
+        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+          Executive Summary
+        </h2>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          Leadership & Culture
+        </p>
+      </div>
+
+      <div class="md:w-3/4 space-y-4">
+        <p class="text-lg sm:text-xl font-serif text-ink-900 dark:text-zinc-100 leading-relaxed">
+          {personal.summary}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPLOYMENT HISTORY -->
+  <section id="experience" class="py-12 border-b border-parchment-300/70 dark:border-zinc-800">
+    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-10">
+      <div class="md:w-1/4">
+        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+          Employment History
+        </h2>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          Engineering Leadership
+        </p>
+      </div>
+
+      <div class="md:w-3/4">
+        <p class="text-sm text-zinc-600 dark:text-zinc-400">
+          High-impact testing strategies, CI/CD governance, AI-assisted validation, and quality culture uplift across global enterprise retail and fintech.
+        </p>
+      </div>
+    </div>
+
+    <div class="space-y-12">
+      {leadershipExperience.map((job) => (
+        <article class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-zinc-900/60 border border-parchment-300/80 dark:border-zinc-800 shadow-sm transition-all hover:border-zinc-400/80 dark:hover:border-zinc-700">
+          <!-- Role Header -->
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-5 border-b border-zinc-100 dark:border-zinc-800">
+            <div>
+              <h3 class="text-2xl font-serif font-bold text-ink-900 dark:text-white">
+                {job.role}
+              </h3>
+              <div class="text-base font-serif italic text-aesop-amber dark:text-amber-400 mt-0.5">
+                {job.company} <span class="font-sans text-xs not-italic text-zinc-500 dark:text-zinc-400">({job.industry})</span>
+              </div>
+            </div>
+
+            <div class="flex sm:flex-col items-baseline sm:items-end gap-2 text-xs font-mono text-zinc-600 dark:text-zinc-400">
+              <span class="font-semibold text-ink-900 dark:text-zinc-200">{job.period}</span>
+              <span>{job.location}</span>
+            </div>
+          </div>
+
+          <!-- Achievements Grid / List -->
+          <div class="mt-6 space-y-6">
+            {job.achievements.map((ach) => (
+              <div class="group">
+                <div class="flex items-start gap-2.5">
+                  <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-aesop-amber dark:bg-amber-400 shrink-0"></div>
+                  <div class="space-y-2">
+                    <h4 class="text-base font-bold text-ink-900 dark:text-zinc-100 tracking-tight">
+                      {ach.title}
+                    </h4>
+                    <p class="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                      {ach.description}
+                    </p>
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                      {ach.tags.map((tag) => (
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-parchment-200/80 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-parchment-300/60 dark:border-zinc-700/60">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- PREVIOUS EXPERIENCE -->
+  <section id="prior-history" class="py-12 border-b border-parchment-300/70 dark:border-zinc-800">
+    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-8">
+      <div class="md:w-1/4">
+        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+          Prior Experience
+        </h2>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 font-mono">
+          {previousExperience.period}
+        </p>
+      </div>
+
+      <div class="md:w-3/4">
+        <p class="text-sm text-zinc-600 dark:text-zinc-400">
+          Foundation in hardware/software validation, UAT coordination, national sports technology workflows, and high-volume banking transactional POS integrations.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {previousExperience.roles.map((prev) => (
+        <div class="p-5 rounded-xl bg-white dark:bg-zinc-900/40 border border-parchment-300/80 dark:border-zinc-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-2">
+              <h3 class="font-serif font-bold text-ink-900 dark:text-zinc-100 text-base">
+                {prev.company}
+              </h3>
+              {prev.location && (
+                <span class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">{prev.location}</span>
+              )}
+            </div>
+            <p class="text-xs font-mono font-medium text-aesop-amber dark:text-amber-400 mt-0.5">
+              {prev.role}
+            </p>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-2.5 leading-relaxed">
+              {prev.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL DEVELOPMENT & CERTIFICATIONS -->
+  <section id="certifications" class="py-12">
+    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-8">
+      <div class="md:w-1/4">
+        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+          Qualifications
+        </h2>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          Certifications & Learning
+        </p>
+      </div>
+
+      <div class="md:w-3/4">
+        <p class="text-sm text-zinc-600 dark:text-zinc-400">
+          Industry-accredited test analyst certifications paired with continuous technical development in modern full-stack web architectures and accessibility.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- ISTQB Card -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900/60 border border-parchment-300/80 dark:border-zinc-800 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider text-aesop-amber dark:text-amber-400">
+            <Award class="w-4 h-4" />
+            <span>ISTQB Certifications</span>
+          </div>
+
+          <div class="space-y-4">
+            {professionalDevelopment.istqbCertifications.map((cert) => (
+              <div class="border-l-2 border-aesop-copper/60 pl-3.5 py-0.5">
+                <h3 class="text-sm font-bold text-ink-900 dark:text-zinc-100">
+                  {cert.title}
+                </h3>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400 font-mono mt-0.5">
+                  {cert.year} — {cert.issuer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Card -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900/60 border border-parchment-300/80 dark:border-zinc-800 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider text-aesop-amber dark:text-amber-400">
+            <Cpu class="w-4 h-4" />
+            <span>Technical Skill Expansion</span>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            {professionalDevelopment.technicalSkills.map((skill) => (
+              <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-parchment-100 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 border border-parchment-300 dark:border-zinc-700">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CALL-TO-ACTION BAR -->
+  <section class="mt-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-parchment-200/90 to-parchment-300/50 dark:from-zinc-900 dark:to-zinc-800/70 border border-parchment-300 dark:border-zinc-700 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="space-y-1 text-center sm:text-left">
+      <h3 class="font-serif text-xl font-bold text-ink-900 dark:text-white">
+        Download Cam's Complete Resume
+      </h3>
+      <p class="text-xs text-zinc-600 dark:text-zinc-400">
+        Both formats are continuously generated from our single YAML source of truth.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="/resume.pdf"
+        download="Cam McOrist - Resume.pdf"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-ink-900 text-parchment-100 dark:bg-zinc-100 dark:text-zinc-950 font-medium text-xs sm:text-sm hover:bg-aesop-amber dark:hover:bg-amber-400 hover:text-white dark:hover:text-ink-900 transition-all shadow-sm"
+      >
+        <Download class="w-4 h-4" />
+        <span>Download PDF</span>
+      </a>
+
+      <a
+        href="/resume.docx"
+        download="Cam McOrist - Resume.docx"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium text-xs sm:text-sm hover:border-zinc-500 transition-all shadow-sm"
+      >
+        <FileText class="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <span>Download Word</span>
+      </a>
+    </div>
+  </section>
+</Layout>
