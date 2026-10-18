@@ -92,7 +92,7 @@ Whenever you push to GitHub, the automated GitHub Action will rebuild the site a
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
    - **Environment Variables**:
-     - `NODE_VERSION`: `22`
+     - `NODE_VERSION`: `24`
 4. Click **Save and Deploy**.
 5. Go to **Custom domains** in your Cloudflare Pages project and add `camcamcam.cam`. Cloudflare will automatically provision SSL certificates.
 

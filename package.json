@@ -2,6 +2,9 @@
   "name": "camcamcam-cam",
   "type": "module",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build:docx": "tsx scripts/generate-docx.ts",
@@ -14,15 +17,15 @@
   "dependencies": {
     "@astrojs/tailwind": "^5.1.5",
     "@lucide/astro": "^1.59.0",
-    "astro": "^5.4.2",
-    "docx": "^9.1.1",
+    "astro": "^5.18.2",
+    "docx": "^9.12.0",
     "tailwindcss": "^3.4.17",
-    "yaml": "^2.7.0"
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "@types/node": "^22.13.4",
-    "playwright": "^1.50.1",
-    "tsx": "^4.19.3",
-    "typescript": "^5.7.3"
+    "@types/node": "^24.19.2",
+    "playwright": "^1.64.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
   }
 }
