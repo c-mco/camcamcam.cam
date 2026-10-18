@@ -140,10 +140,6 @@ const { personal } = resume;
                 {personal.name}
               </p>
             </div>
-            <p class="text-xs text-espresso-300 flex items-center gap-2 font-medium">
-              <Sparkles class="w-3.5 h-3.5 text-mustard-400" />
-              <span>Single Source of Truth: Web, PDF & DOCX synced via <code class="font-mono text-mustard-300 bg-espresso-800 px-1.5 py-0.5 rounded-full border border-espresso-700">resume.yaml</code></span>
-            </p>
           </div>
 
           <!-- Circular pill links -->
@@ -173,7 +169,7 @@ const { personal } = resume;
         </div>
 
         <div class="mt-10 pt-6 border-t border-espresso-800 flex flex-col sm:flex-row items-center justify-between text-xs text-espresso-400 gap-3">
-          <p>© {new Date().getFullYear()} {personal.name}. Crafted with 70s flair, modern Astro & Tailwind CSS.</p>
+          <p>© {new Date().getFullYear()} {personal.name}. </p>
           <p class="font-mono text-mustard-400">{personal.website.replace('https://', '')}</p>
         </div>
       </div>
