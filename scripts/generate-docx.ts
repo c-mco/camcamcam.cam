@@ -264,10 +264,10 @@ function createSectionHeader(title: string): Paragraph {
     spacing: { before: 240, after: 80 },
     border: {
       bottom: {
-        color: 'CCCCCC',
+        color: 'D99B26', // warm mustard 70s accent line
         space: 4,
         style: BorderStyle.SINGLE,
-        size: 6,
+        size: 8,
       },
     },
     children: [
@@ -275,7 +275,7 @@ function createSectionHeader(title: string): Paragraph {
         text: title,
         bold: true,
         size: 26, // 13pt
-        color: '111827',
+        color: '1A110B', // rich espresso
         font: 'Georgia',
       }),
     ],

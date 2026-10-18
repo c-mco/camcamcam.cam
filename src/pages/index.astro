@@ -11,129 +11,143 @@ import {
   Printer,
   Award,
   Sparkles,
-  CheckCircle2,
-  Calendar,
-  ExternalLink,
-  Cpu,
-  Layers,
   ArrowUpRight,
+  ShieldCheck,
+  CheckCircle,
+  Terminal,
 } from '@lucide/astro';
 
 const { personal, highlights, leadershipExperience, previousExperience, professionalDevelopment } = resume;
 ---
 
 <Layout>
-  <!-- HERO SECTION -->
-  <section class="py-6 sm:py-10 border-b border-parchment-300/70 dark:border-zinc-800">
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-      <div class="space-y-4 max-w-2xl">
-        <!-- Live status badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-800/60">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+  <!-- HERO SECTION WITH RETRO CIRCLES & WARM MUSTARDS -->
+  <section class="relative py-8 sm:py-14 border-b-2 border-cream-300 dark:border-espresso-700 overflow-hidden">
+    <!-- Decorative 60s/70s ambient circles in background -->
+    <div class="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-mustard-400/20 dark:bg-mustard-500/10 blur-2xl pointer-events-none"></div>
+    <div class="absolute top-1/2 -left-20 w-72 h-72 rounded-full bg-rust-500/15 dark:bg-rust-500/10 blur-3xl pointer-events-none"></div>
+
+    <div class="relative flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+      <div class="space-y-5 max-w-2xl">
+        <!-- Live status pill with circular pulse -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-mustard-100 dark:bg-espresso-800 text-espresso-900 dark:text-mustard-300 border-2 border-mustard-400 dark:border-mustard-600 shadow-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-mustard-500 dark:bg-mustard-400 animate-ping"></span>
           <span>{personal.location} • {personal.citizenship}</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl font-serif font-bold text-ink-900 dark:text-[#F8F6F0] tracking-tight leading-[1.08]">
-          {personal.name}
-        </h1>
+        <div>
+          <h1 class="text-5xl sm:text-7xl font-serif font-black text-espresso-950 dark:text-cream-50 tracking-tight leading-[1.02]">
+            {personal.name}
+          </h1>
+          <p class="text-2xl sm:text-3xl font-serif italic font-bold text-mustard-600 dark:text-mustard-400 mt-2">
+            {personal.title}
+          </p>
+        </div>
 
-        <p class="text-xl sm:text-2xl font-serif italic text-aesop-amber dark:text-amber-400">
-          {personal.title}
-        </p>
-
-        <!-- Contact Pills -->
-        <div class="flex flex-wrap gap-y-2 gap-x-4 pt-2 text-sm text-ink-600 dark:text-zinc-400">
+        <!-- Contact Pills with rounded corners -->
+        <div class="flex flex-wrap gap-2.5 pt-2 text-xs sm:text-sm font-medium">
           <a
             href={`mailto:${personal.email}`}
-            class="inline-flex items-center gap-1.5 hover:text-ink-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 dark:bg-espresso-800 border-2 border-cream-300 dark:border-espresso-700 text-espresso-900 dark:text-cream-100 hover:border-mustard-500 hover:text-mustard-700 dark:hover:text-mustard-400 transition-all shadow-sm"
           >
-            <Mail class="w-4 h-4 text-aesop-copper" />
+            <Mail class="w-3.5 h-3.5 text-rust-500" />
             <span>{personal.email}</span>
           </a>
 
           <a
             href={`tel:${personal.phone.replace(/\s+/g, '')}`}
-            class="inline-flex items-center gap-1.5 hover:text-ink-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 dark:bg-espresso-800 border-2 border-cream-300 dark:border-espresso-700 text-espresso-900 dark:text-cream-100 hover:border-mustard-500 hover:text-mustard-700 dark:hover:text-mustard-400 transition-all shadow-sm"
           >
-            <Phone class="w-4 h-4 text-aesop-copper" />
+            <Phone class="w-3.5 h-3.5 text-mustard-600 dark:text-mustard-400" />
             <span>{personal.phone}</span>
           </a>
 
           <a
             href={personal.website}
-            class="inline-flex items-center gap-1.5 hover:text-ink-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 dark:bg-espresso-800 border-2 border-cream-300 dark:border-espresso-700 text-espresso-900 dark:text-cream-100 hover:border-mustard-500 hover:text-mustard-700 dark:hover:text-mustard-400 transition-all shadow-sm"
           >
-            <Globe class="w-4 h-4 text-aesop-copper" />
+            <Globe class="w-3.5 h-3.5 text-espresso-500 dark:text-espresso-300" />
             <span>{personal.website.replace('https://', '')}</span>
           </a>
 
-          <span class="inline-flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400">
-            <MapPin class="w-4 h-4 text-aesop-copper" />
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/70 dark:bg-espresso-800/60 border border-cream-300 dark:border-espresso-700 text-espresso-600 dark:text-espresso-300">
+            <MapPin class="w-3.5 h-3.5 text-rust-500" />
             <span>{personal.location}</span>
           </span>
         </div>
       </div>
 
-      <!-- Action Box: Direct Document Downloads -->
-      <div class="bg-parchment-200/70 dark:bg-zinc-900/90 p-5 rounded-2xl border border-parchment-300 dark:border-zinc-800 shadow-sm flex flex-col gap-3 min-w-[280px]">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            Resume Downloads
-          </span>
-          <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-mono">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            Synced
+      <!-- Action Box: Stylized Retro Badge & Download Station -->
+      <div class="relative bg-cream-50 dark:bg-espresso-800/90 p-6 sm:p-7 rounded-3xl border-3 border-espresso-800 dark:border-mustard-400 shadow-[6px_6px_0px_0px_#281A12] dark:shadow-[6px_6px_0px_0px_#EBBF50] flex flex-col gap-4 min-w-[300px]">
+        <!-- Circular Accent Badge in corner -->
+        <div class="flex items-center justify-between pb-1 border-b border-cream-300 dark:border-espresso-700">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-mustard-500"></span>
+            <span class="w-3 h-3 rounded-full bg-rust-500"></span>
+            <span class="w-3 h-3 rounded-full bg-avocado-500"></span>
+          </div>
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-espresso-600 dark:text-mustard-300">
+            Official Resume
           </span>
         </div>
 
-        <div class="grid grid-cols-2 gap-2.5">
+        <p class="text-xs text-espresso-600 dark:text-espresso-300 font-medium leading-relaxed">
+          Single source of truth. Both downloads generated live from <code class="font-mono font-bold text-mustard-600 dark:text-mustard-400">resume.yaml</code>.
+        </p>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <!-- PDF Pill Button -->
           <a
             href="/resume.pdf"
             download="Cam McOrist - Resume.pdf"
-            class="group flex flex-col items-center justify-center p-3 rounded-xl bg-ink-900 text-parchment-100 dark:bg-zinc-100 dark:text-zinc-950 hover:bg-aesop-amber dark:hover:bg-amber-400 hover:text-white dark:hover:text-ink-900 transition-all text-center shadow-sm"
+            class="group flex flex-col items-center justify-center p-3.5 rounded-2xl bg-mustard-500 text-espresso-950 font-bold hover:bg-mustard-400 border-2 border-espresso-900 shadow-[2px_2px_0px_0px_#281A12] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all text-center"
           >
-            <div class="flex items-center gap-1.5 font-medium text-sm">
-              <Download class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+            <div class="flex items-center gap-1.5 text-sm">
+              <Download class="w-4 h-4 stroke-[2.5] group-hover:-translate-y-0.5 transition-transform" />
               <span>PDF</span>
             </div>
-            <span class="text-[10px] opacity-75 mt-0.5 font-mono">Vector Print</span>
+            <span class="text-[10px] uppercase font-mono font-bold opacity-80 mt-0.5">Vector Print</span>
           </a>
 
+          <!-- Word Pill Button -->
           <a
             href="/resume.docx"
             download="Cam McOrist - Resume.docx"
-            class="group flex flex-col items-center justify-center p-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 text-zinc-900 dark:text-zinc-100 transition-all text-center shadow-sm"
+            class="group flex flex-col items-center justify-center p-3.5 rounded-2xl bg-cream-100 dark:bg-espresso-900 border-2 border-espresso-800 dark:border-espresso-600 hover:border-mustard-500 text-espresso-950 dark:text-cream-100 shadow-[2px_2px_0px_0px_#4A3326] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all text-center"
           >
-            <div class="flex items-center gap-1.5 font-medium text-sm">
-              <FileText class="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:-translate-y-0.5 transition-transform" />
+            <div class="flex items-center gap-1.5 text-sm font-bold">
+              <FileText class="w-4 h-4 text-rust-500 stroke-[2.5] group-hover:-translate-y-0.5 transition-transform" />
               <span>Word</span>
             </div>
-            <span class="text-[10px] text-zinc-500 dark:text-zinc-400 mt-0.5 font-mono">ATS-Ready</span>
+            <span class="text-[10px] uppercase font-mono font-bold text-espresso-500 dark:text-espresso-400 mt-0.5">ATS-Ready</span>
           </a>
         </div>
 
         <a
           href="/print"
           target="_blank"
-          class="flex items-center justify-center gap-2 py-1.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-ink-900 dark:hover:text-white transition-colors"
+          class="inline-flex items-center justify-center gap-2 pt-1 text-xs font-bold text-espresso-600 dark:text-mustard-300 hover:text-espresso-950 dark:hover:text-white transition-colors"
         >
           <Printer class="w-3.5 h-3.5" />
-          <span>Open Clean Print Version</span>
-          <ArrowUpRight class="w-3 h-3 opacity-60" />
+          <span>Open Printable Browser View</span>
+          <ArrowUpRight class="w-3 h-3 opacity-70" />
         </a>
       </div>
     </div>
   </section>
 
-  <!-- KEY METRIC HIGHLIGHTS -->
-  <section class="py-8 border-b border-parchment-300/70 dark:border-zinc-800">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {highlights.map((item) => (
-        <div class="p-4 rounded-xl bg-parchment-50/70 dark:bg-zinc-900/50 border border-parchment-300/60 dark:border-zinc-800 transition-all hover:border-aesop-amber/40">
-          <div class="font-serif text-3xl sm:text-4xl font-bold text-ink-900 dark:text-zinc-100 tracking-tight">
+  <!-- CIRCULAR RETRO METRIC HIGHLIGHTS -->
+  <section class="py-10 border-b-2 border-cream-300 dark:border-espresso-700">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {highlights.map((item, idx) => (
+        <div class="relative p-5 sm:p-6 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 shadow-sm hover:border-mustard-500 dark:hover:border-mustard-400 transition-all group overflow-hidden">
+          <!-- Subtle decorative circular ring in top corner -->
+          <div class="absolute -right-4 -top-4 w-16 h-16 rounded-full border-4 border-mustard-400/30 dark:border-mustard-400/20 group-hover:scale-125 transition-transform duration-300 pointer-events-none"></div>
+
+          <div class="font-serif font-black text-3xl sm:text-5xl text-espresso-900 dark:text-mustard-300 tracking-tight">
             {item.metric}
           </div>
-          <div class="text-xs sm:text-sm text-ink-600 dark:text-zinc-400 mt-1 font-medium leading-snug">
+          <div class="text-xs sm:text-sm font-bold text-espresso-600 dark:text-espresso-300 mt-2 leading-snug">
             {item.label}
           </div>
         </div>
@@ -142,86 +156,96 @@ const { personal, highlights, leadershipExperience, previousExperience, professi
   </section>
 
   <!-- EXECUTIVE SUMMARY -->
-  <section id="summary" class="py-10 border-b border-parchment-300/70 dark:border-zinc-800">
+  <section id="summary" class="py-12 border-b-2 border-cream-300 dark:border-espresso-700">
     <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
       <div class="md:w-1/4">
-        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+        <!-- Retro label with rounded pill shape -->
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-mustard-500 text-espresso-950">
           Executive Summary
-        </h2>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-          Leadership & Culture
+        </span>
+        <p class="text-xs font-bold text-espresso-500 dark:text-espresso-400 mt-2">
+          Leadership • Quality Culture
         </p>
       </div>
 
-      <div class="md:w-3/4 space-y-4">
-        <p class="text-lg sm:text-xl font-serif text-ink-900 dark:text-zinc-100 leading-relaxed">
-          {personal.summary}
-        </p>
+      <div class="md:w-3/4">
+        <div class="p-6 sm:p-8 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-l-6 border-mustard-500 border-t-2 border-r-2 border-b-2 border-cream-300 dark:border-espresso-700 shadow-sm">
+          <p class="text-lg sm:text-xl font-serif text-espresso-900 dark:text-cream-100 leading-relaxed font-normal">
+            {personal.summary}
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- EMPLOYMENT HISTORY -->
-  <section id="experience" class="py-12 border-b border-parchment-300/70 dark:border-zinc-800">
+  <!-- LEADERSHIP EMPLOYMENT HISTORY -->
+  <section id="experience" class="py-14 border-b-2 border-cream-300 dark:border-espresso-700">
     <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-10">
       <div class="md:w-1/4">
-        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-mustard-500 text-espresso-950">
           Employment History
-        </h2>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+        </span>
+        <p class="text-xs font-bold text-espresso-500 dark:text-espresso-400 mt-2">
           Engineering Leadership
         </p>
       </div>
 
       <div class="md:w-3/4">
-        <p class="text-sm text-zinc-600 dark:text-zinc-400">
-          High-impact testing strategies, CI/CD governance, AI-assisted validation, and quality culture uplift across global enterprise retail and fintech.
+        <p class="text-sm font-medium text-espresso-600 dark:text-espresso-300">
+          Architecting testing frameworks, CI/CD governance, AI-assisted migration, and inclusive engineering culture across enterprise retail and fintech.
         </p>
       </div>
     </div>
 
     <div class="space-y-12">
       {leadershipExperience.map((job) => (
-        <article class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-zinc-900/60 border border-parchment-300/80 dark:border-zinc-800 shadow-sm transition-all hover:border-zinc-400/80 dark:hover:border-zinc-700">
-          <!-- Role Header -->
-          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-5 border-b border-zinc-100 dark:border-zinc-800">
+        <article class="p-7 sm:p-9 rounded-4xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 shadow-[4px_4px_0px_0px_#EADDC7] dark:shadow-[4px_4px_0px_0px_#281A12] transition-all hover:border-mustard-500 dark:hover:border-mustard-400">
+          <!-- Role Header with Circular Pill Accents -->
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 pb-6 border-b-2 border-cream-200 dark:border-espresso-700">
             <div>
-              <h3 class="text-2xl font-serif font-bold text-ink-900 dark:text-white">
+              <h3 class="text-2xl sm:text-3xl font-serif font-black text-espresso-950 dark:text-cream-50 tracking-tight">
                 {job.role}
               </h3>
-              <div class="text-base font-serif italic text-aesop-amber dark:text-amber-400 mt-0.5">
-                {job.company} <span class="font-sans text-xs not-italic text-zinc-500 dark:text-zinc-400">({job.industry})</span>
+              <div class="text-lg font-serif font-bold italic text-mustard-600 dark:text-mustard-400 mt-1 flex items-center gap-2">
+                <span>{job.company}</span>
+                <span class="text-xs font-sans not-italic font-bold px-2.5 py-0.5 rounded-full bg-cream-200 dark:bg-espresso-700 text-espresso-700 dark:text-cream-200">
+                  {job.industry}
+                </span>
               </div>
             </div>
 
-            <div class="flex sm:flex-col items-baseline sm:items-end gap-2 text-xs font-mono text-zinc-600 dark:text-zinc-400">
-              <span class="font-semibold text-ink-900 dark:text-zinc-200">{job.period}</span>
-              <span>{job.location}</span>
+            <div class="flex sm:flex-col items-baseline sm:items-end gap-1.5 text-xs font-mono">
+              <span class="font-bold text-espresso-950 dark:text-mustard-300 bg-mustard-100 dark:bg-espresso-900 px-3 py-1 rounded-full border border-mustard-300 dark:border-espresso-600">
+                {job.period}
+              </span>
+              <span class="text-espresso-500 dark:text-espresso-400 font-semibold">{job.location}</span>
             </div>
           </div>
 
-          <!-- Achievements Grid / List -->
-          <div class="mt-6 space-y-6">
+          <!-- Achievements List with Funky Bullet Circles -->
+          <div class="mt-8 space-y-7">
             {job.achievements.map((ach) => (
-              <div class="group">
-                <div class="flex items-start gap-2.5">
-                  <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-aesop-amber dark:bg-amber-400 shrink-0"></div>
-                  <div class="space-y-2">
-                    <h4 class="text-base font-bold text-ink-900 dark:text-zinc-100 tracking-tight">
-                      {ach.title}
-                    </h4>
-                    <p class="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                      {ach.description}
-                    </p>
+              <div class="flex items-start gap-3.5">
+                <!-- Concentric circle bullet -->
+                <div class="mt-1.5 w-4 h-4 rounded-full bg-mustard-500 dark:bg-mustard-400 flex items-center justify-center shrink-0 border border-espresso-900">
+                  <div class="w-1.5 h-1.5 rounded-full bg-espresso-950 dark:bg-espresso-900"></div>
+                </div>
 
-                    <!-- Tech Tags -->
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                      {ach.tags.map((tag) => (
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-parchment-200/80 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-parchment-300/60 dark:border-zinc-700/60">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                <div class="space-y-2 flex-1">
+                  <h4 class="text-base font-bold text-espresso-950 dark:text-cream-100 tracking-tight">
+                    {ach.title}
+                  </h4>
+                  <p class="text-sm font-normal text-espresso-700 dark:text-espresso-200 leading-relaxed">
+                    {ach.description}
+                  </p>
+
+                  <!-- Tech Tags as Rounded Pills -->
+                  <div class="flex flex-wrap gap-2 pt-1.5">
+                    {ach.tags.map((tag) => (
+                      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cream-200 dark:bg-espresso-900 text-espresso-800 dark:text-mustard-300 border border-cream-300 dark:border-espresso-700 shadow-2xs hover:border-mustard-500 transition-colors">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -232,41 +256,43 @@ const { personal, highlights, leadershipExperience, previousExperience, professi
     </div>
   </section>
 
-  <!-- PREVIOUS EXPERIENCE -->
-  <section id="prior-history" class="py-12 border-b border-parchment-300/70 dark:border-zinc-800">
+  <!-- PRIOR EXPERIENCE (2007 - 2015) -->
+  <section id="prior-history" class="py-14 border-b-2 border-cream-300 dark:border-espresso-700">
     <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-8">
       <div class="md:w-1/4">
-        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-rust-500 text-white">
           Prior Experience
-        </h2>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 font-mono">
+        </span>
+        <p class="text-xs font-mono font-bold text-espresso-500 dark:text-espresso-400 mt-2">
           {previousExperience.period}
         </p>
       </div>
 
       <div class="md:w-3/4">
-        <p class="text-sm text-zinc-600 dark:text-zinc-400">
-          Foundation in hardware/software validation, UAT coordination, national sports technology workflows, and high-volume banking transactional POS integrations.
+        <p class="text-sm font-medium text-espresso-600 dark:text-espresso-300">
+          Core testing fundamentals: hardware/software validation, UAT coordination, national sports technology workflows, and banking POS integrations.
         </p>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       {previousExperience.roles.map((prev) => (
-        <div class="p-5 rounded-xl bg-white dark:bg-zinc-900/40 border border-parchment-300/80 dark:border-zinc-800 flex flex-col justify-between">
+        <div class="p-6 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 flex flex-col justify-between hover:border-rust-500 transition-colors">
           <div>
             <div class="flex items-baseline justify-between gap-2">
-              <h3 class="font-serif font-bold text-ink-900 dark:text-zinc-100 text-base">
+              <h3 class="font-serif font-black text-espresso-950 dark:text-cream-100 text-lg">
                 {prev.company}
               </h3>
               {prev.location && (
-                <span class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">{prev.location}</span>
+                <span class="text-xs font-mono font-bold text-rust-600 dark:text-rust-400 bg-rust-100 dark:bg-espresso-900 px-2.5 py-0.5 rounded-full border border-rust-300 dark:border-espresso-700">
+                  {prev.location}
+                </span>
               )}
             </div>
-            <p class="text-xs font-mono font-medium text-aesop-amber dark:text-amber-400 mt-0.5">
+            <p class="text-xs font-mono font-bold text-mustard-600 dark:text-mustard-400 mt-1">
               {prev.role}
             </p>
-            <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-2.5 leading-relaxed">
+            <p class="text-xs font-normal text-espresso-700 dark:text-espresso-300 mt-3 leading-relaxed">
               {prev.description}
             </p>
           </div>
@@ -276,40 +302,42 @@ const { personal, highlights, leadershipExperience, previousExperience, professi
   </section>
 
   <!-- PROFESSIONAL DEVELOPMENT & CERTIFICATIONS -->
-  <section id="certifications" class="py-12">
-    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-8">
+  <section id="certifications" class="py-14">
+    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-10">
       <div class="md:w-1/4">
-        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-aesop-amber dark:text-amber-400">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-avocado-500 text-white">
           Qualifications
-        </h2>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+        </span>
+        <p class="text-xs font-bold text-espresso-500 dark:text-espresso-400 mt-2">
           Certifications & Learning
         </p>
       </div>
 
       <div class="md:w-3/4">
-        <p class="text-sm text-zinc-600 dark:text-zinc-400">
-          Industry-accredited test analyst certifications paired with continuous technical development in modern full-stack web architectures and accessibility.
+        <p class="text-sm font-medium text-espresso-600 dark:text-espresso-300">
+          Recognized test analyst certifications paired with ongoing engineering skill development in accessibility and modern web architectures.
         </p>
       </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- ISTQB Card -->
-      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900/60 border border-parchment-300/80 dark:border-zinc-800 flex flex-col justify-between">
+      <!-- ISTQB Certifications Card -->
+      <div class="p-7 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 flex flex-col justify-between">
         <div>
-          <div class="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider text-aesop-amber dark:text-amber-400">
-            <Award class="w-4 h-4" />
+          <div class="flex items-center gap-2.5 mb-5 text-xs font-mono font-bold uppercase tracking-wider text-mustard-600 dark:text-mustard-400">
+            <div class="w-6 h-6 rounded-full bg-mustard-500 text-espresso-950 flex items-center justify-center">
+              <Award class="w-3.5 h-3.5 stroke-[2.5]" />
+            </div>
             <span>ISTQB Certifications</span>
           </div>
 
           <div class="space-y-4">
             {professionalDevelopment.istqbCertifications.map((cert) => (
-              <div class="border-l-2 border-aesop-copper/60 pl-3.5 py-0.5">
-                <h3 class="text-sm font-bold text-ink-900 dark:text-zinc-100">
+              <div class="border-l-4 border-mustard-500 pl-4 py-1">
+                <h3 class="text-sm font-bold text-espresso-950 dark:text-cream-100">
                   {cert.title}
                 </h3>
-                <p class="text-xs text-zinc-500 dark:text-zinc-400 font-mono mt-0.5">
+                <p class="text-xs font-mono font-semibold text-espresso-500 dark:text-espresso-400 mt-1">
                   {cert.year} — {cert.issuer}
                 </p>
               </div>
@@ -318,17 +346,19 @@ const { personal, highlights, leadershipExperience, previousExperience, professi
         </div>
       </div>
 
-      <!-- Skills Card -->
-      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900/60 border border-parchment-300/80 dark:border-zinc-800 flex flex-col justify-between">
+      <!-- Technical Skill Expansion Card -->
+      <div class="p-7 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 flex flex-col justify-between">
         <div>
-          <div class="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider text-aesop-amber dark:text-amber-400">
-            <Cpu class="w-4 h-4" />
+          <div class="flex items-center gap-2.5 mb-5 text-xs font-mono font-bold uppercase tracking-wider text-rust-500 dark:text-rust-400">
+            <div class="w-6 h-6 rounded-full bg-rust-500 text-white flex items-center justify-center">
+              <Sparkles class="w-3.5 h-3.5 stroke-[2.5]" />
+            </div>
             <span>Technical Skill Expansion</span>
           </div>
 
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2.5">
             {professionalDevelopment.technicalSkills.map((skill) => (
-              <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-parchment-100 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 border border-parchment-300 dark:border-zinc-700">
+              <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-cream-200 dark:bg-espresso-900 text-espresso-800 dark:text-cream-100 border border-cream-300 dark:border-espresso-700 shadow-sm hover:border-mustard-500 transition-colors">
                 {skill}
               </span>
             ))}
@@ -338,33 +368,39 @@ const { personal, highlights, leadershipExperience, previousExperience, professi
     </div>
   </section>
 
-  <!-- BOTTOM CALL-TO-ACTION BAR -->
-  <section class="mt-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-parchment-200/90 to-parchment-300/50 dark:from-zinc-900 dark:to-zinc-800/70 border border-parchment-300 dark:border-zinc-700 flex flex-col sm:flex-row items-center justify-between gap-6">
-    <div class="space-y-1 text-center sm:text-left">
-      <h3 class="font-serif text-xl font-bold text-ink-900 dark:text-white">
+  <!-- BOTTOM ACTION BANNER -->
+  <section class="mt-8 p-8 sm:p-10 rounded-4xl bg-gradient-to-r from-mustard-500 via-mustard-400 to-rust-400 text-espresso-950 border-3 border-espresso-900 shadow-[6px_6px_0px_0px_#281A12] flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="space-y-1.5 text-center sm:text-left">
+      <div class="flex items-center justify-center sm:justify-start gap-2">
+        <span class="w-3 h-3 rounded-full bg-espresso-950"></span>
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-espresso-900">
+          Always In Sync
+        </span>
+      </div>
+      <h3 class="font-serif font-black text-2xl sm:text-3xl text-espresso-950 tracking-tight">
         Download Cam's Complete Resume
       </h3>
-      <p class="text-xs text-zinc-600 dark:text-zinc-400">
-        Both formats are continuously generated from our single YAML source of truth.
+      <p class="text-xs font-medium text-espresso-900 max-w-md">
+        Generated simultaneously from a single YAML source of truth for 100% data fidelity.
       </p>
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 shrink-0">
       <a
         href="/resume.pdf"
         download="Cam McOrist - Resume.pdf"
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-ink-900 text-parchment-100 dark:bg-zinc-100 dark:text-zinc-950 font-medium text-xs sm:text-sm hover:bg-aesop-amber dark:hover:bg-amber-400 hover:text-white dark:hover:text-ink-900 transition-all shadow-sm"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-espresso-950 text-cream-50 font-bold text-xs sm:text-sm hover:bg-espresso-800 transition-all shadow-md"
       >
-        <Download class="w-4 h-4" />
+        <Download class="w-4 h-4 stroke-[2.5]" />
         <span>Download PDF</span>
       </a>
 
       <a
         href="/resume.docx"
         download="Cam McOrist - Resume.docx"
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium text-xs sm:text-sm hover:border-zinc-500 transition-all shadow-sm"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-cream-50 text-espresso-950 border-2 border-espresso-950 font-bold text-xs sm:text-sm hover:bg-cream-200 transition-all shadow-md"
       >
-        <FileText class="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <FileText class="w-4 h-4 text-rust-500 stroke-[2.5]" />
         <span>Download Word</span>
       </a>
     </div>

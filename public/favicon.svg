@@ -1,4 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="8" fill="#1C1917"/>
-  <text x="16" y="21" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#FAF8F5" text-anchor="middle">CM</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Outer warm mustard circle -->
+  <circle cx="24" cy="24" r="23" fill="#D99B26" stroke="#281A12" stroke-width="2"/>
+  <!-- Middle concentric circle -->
+  <circle cx="24" cy="24" r="19" fill="#281A12"/>
+  <!-- Inner cream circle ring -->
+  <circle cx="24" cy="24" r="16.5" stroke="#FAF4E8" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <!-- Retro Monogram CM -->
+  <text x="24" y="30" font-family="'Outfit', 'Fraunces', sans-serif" font-size="16" font-weight="800" fill="#FAF4E8" text-anchor="middle" letter-spacing="-0.5">CM</text>
 </svg>

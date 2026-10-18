@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { resume } from '../data/resume';
-import { FileText, Download, Printer, Moon, Sun, ShieldCheck } from '@lucide/astro';
+import { FileText, Download, Printer, Moon, Sun, Sparkles } from '@lucide/astro';
 
 interface Props {
   title?: string;
@@ -42,74 +42,81 @@ const { personal } = resume;
       }
     </script>
   </head>
-  <body class="bg-parchment-100 dark:bg-[#121315] text-ink-900 dark:text-[#ECE8E1] transition-colors duration-200 min-h-screen flex flex-col antialiased">
+  <body class="bg-cream-100 dark:bg-espresso-900 text-espresso-900 dark:text-cream-100 transition-colors duration-200 min-h-screen flex flex-col antialiased selection:bg-mustard-500 selection:text-espresso-900">
     <!-- Accessible Skip to Content -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-ink-900 focus:text-white dark:focus:bg-white dark:focus:text-ink-900 rounded-md shadow-lg outline-none ring-2 ring-aesop-amber"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-5 focus:py-2.5 focus:bg-espresso-900 focus:text-mustard-300 dark:focus:bg-mustard-400 dark:focus:text-espresso-950 rounded-full font-bold shadow-xl outline-none ring-4 ring-mustard-500"
     >
       Skip to content
     </a>
 
-    <!-- Sticky Editorial Navigation Header -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-parchment-100/85 dark:bg-[#121315]/85 border-b border-parchment-300/80 dark:border-zinc-800 transition-colors">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="/" class="group flex items-center gap-2.5 outline-none">
-          <span class="w-8 h-8 rounded bg-ink-900 dark:bg-zinc-100 text-parchment-100 dark:text-ink-900 flex items-center justify-center font-serif font-bold text-sm tracking-tight group-hover:scale-105 transition-transform">
+    <!-- Sticky Funky Navigation Header -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-cream-100/90 dark:bg-espresso-900/90 border-b-2 border-cream-300 dark:border-espresso-700 transition-colors">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 h-18 py-3 flex items-center justify-between">
+        <!-- Logo Brand -->
+        <a href="/" class="group flex items-center gap-3 outline-none">
+          <div class="relative w-10 h-10 rounded-full bg-mustard-500 dark:bg-mustard-400 text-espresso-950 flex items-center justify-center font-serif font-black text-sm tracking-tight border-2 border-espresso-800 dark:border-espresso-950 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
             CM
-          </span>
-          <span class="font-serif font-semibold text-lg tracking-tight group-hover:text-aesop-amber dark:group-hover:text-amber-400 transition-colors">
-            {personal.name}
-          </span>
+            <div class="absolute -inset-1 rounded-full border border-dashed border-mustard-600/40 dark:border-mustard-300/40 pointer-events-none animate-spin-slow"></div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif font-black text-xl tracking-tight text-espresso-900 dark:text-cream-50 group-hover:text-mustard-600 dark:group-hover:text-mustard-400 transition-colors">
+              {personal.name}
+            </span>
+            <span class="text-[11px] font-mono uppercase tracking-widest text-espresso-500 dark:text-espresso-300 -mt-0.5">
+              camcamcam.cam
+            </span>
+          </div>
         </a>
 
         <!-- Navigation actions -->
         <div class="flex items-center gap-2 sm:gap-3">
-          <!-- Download PDF -->
+          <!-- Download PDF (Mustard Pill) -->
           <a
             href="/resume.pdf"
             download="Cam McOrist - Resume.pdf"
             title="Download PDF version of resume"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full bg-ink-900 text-parchment-100 dark:bg-zinc-100 dark:text-zinc-950 hover:bg-aesop-amber dark:hover:bg-amber-400 hover:text-white dark:hover:text-ink-900 shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-aesop-amber"
+            class="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-bold rounded-full bg-mustard-500 text-espresso-950 hover:bg-mustard-400 border-2 border-espresso-900 dark:border-mustard-200 shadow-[2px_2px_0px_0px_#281A12] dark:shadow-[2px_2px_0px_0px_#EBBF50] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-500"
           >
-            <Download class="w-3.5 h-3.5" />
+            <Download class="w-3.5 h-3.5 stroke-[2.5]" />
             <span>PDF</span>
           </a>
 
-          <!-- Download Word -->
+          <!-- Download Word (Cream / Brown Pill) -->
           <a
             href="/resume.docx"
             download="Cam McOrist - Resume.docx"
             title="Download Microsoft Word .docx version of resume"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-500 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-aesop-amber"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-bold rounded-full bg-cream-50 dark:bg-espresso-800 text-espresso-900 dark:text-cream-100 hover:bg-cream-200 dark:hover:bg-espresso-700 border-2 border-espresso-700 dark:border-espresso-500 shadow-[2px_2px_0px_0px_#4A3326] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-500"
           >
-            <FileText class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <FileText class="w-3.5 h-3.5 text-rust-500 stroke-[2.5]" />
             <span class="hidden xs:inline">Word</span>
             <span class="xs:hidden">DOCX</span>
           </a>
 
-          <!-- Print Direct Link -->
+          <!-- Print View Link -->
           <a
             href="/print"
             target="_blank"
             title="Open print-optimized view"
-            class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+            class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-full text-espresso-600 dark:text-espresso-300 hover:text-espresso-950 dark:hover:text-white hover:bg-cream-200 dark:hover:bg-espresso-800 transition-colors"
           >
             <Printer class="w-3.5 h-3.5" />
             <span>Print View</span>
           </a>
 
-          <div class="w-px h-5 bg-zinc-300 dark:bg-zinc-800 mx-1 hidden sm:block"></div>
+          <div class="w-px h-6 bg-cream-300 dark:bg-espresso-700 mx-1 hidden sm:block"></div>
 
-          <!-- Theme Toggle -->
+          <!-- Theme Toggle (Circular Button) -->
           <button
             id="theme-toggle"
             type="button"
             aria-label="Toggle visual theme (dark or light mode)"
-            class="p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-aesop-amber"
+            class="w-10 h-10 rounded-full border-2 border-espresso-800 dark:border-cream-300 bg-cream-50 dark:bg-espresso-800 text-espresso-900 dark:text-mustard-400 flex items-center justify-center hover:bg-mustard-100 dark:hover:bg-espresso-700 shadow-[2px_2px_0px_0px_#281A12] dark:shadow-[2px_2px_0px_0px_#EADDC7] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-500"
           >
-            <Sun class="w-4 h-4 hidden dark:block" />
-            <Moon class="w-4 h-4 block dark:hidden" />
+            <Sun class="w-4 h-4 hidden dark:block stroke-[2.5]" />
+            <Moon class="w-4 h-4 block dark:hidden stroke-[2.5]" />
           </button>
         </div>
       </div>
@@ -120,32 +127,54 @@ const { personal } = resume;
       <slot />
     </main>
 
-    <!-- Colophon & Footer -->
-    <footer class="border-t border-parchment-300 dark:border-zinc-800 mt-16 bg-parchment-200/60 dark:bg-[#0d0e10]/80 py-12 transition-colors">
+    <!-- 60s/70s Funky Footer -->
+    <footer class="border-t-4 border-mustard-500 mt-20 bg-espresso-900 text-cream-100 py-14 transition-colors">
       <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div class="space-y-1">
-            <p class="font-serif font-semibold text-zinc-900 dark:text-zinc-100">
-              {personal.name}
-            </p>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
-              <ShieldCheck class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span>Single Source of Truth: Web, PDF, and DOCX generated from <code class="font-mono text-[11px] bg-zinc-200 dark:bg-zinc-800 px-1 py-0.5 rounded">resume.yaml</code></span>
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div class="space-y-2">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-mustard-500 text-espresso-950 flex items-center justify-center font-serif font-black text-xs border border-mustard-300">
+                CM
+              </span>
+              <p class="font-serif font-bold text-xl text-cream-50 tracking-tight">
+                {personal.name}
+              </p>
+            </div>
+            <p class="text-xs text-espresso-300 flex items-center gap-2 font-medium">
+              <Sparkles class="w-3.5 h-3.5 text-mustard-400" />
+              <span>Single Source of Truth: Web, PDF & DOCX synced via <code class="font-mono text-mustard-300 bg-espresso-800 px-1.5 py-0.5 rounded-full border border-espresso-700">resume.yaml</code></span>
             </p>
           </div>
 
-          <div class="flex items-center gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-400">
-            <a href="/resume.pdf" class="hover:text-aesop-amber dark:hover:text-amber-400 transition-colors underline underline-offset-2">Download PDF</a>
-            <span>•</span>
-            <a href="/resume.docx" class="hover:text-aesop-amber dark:hover:text-amber-400 transition-colors underline underline-offset-2">Download DOCX</a>
-            <span>•</span>
-            <a href="/print" target="_blank" class="hover:text-aesop-amber dark:hover:text-amber-400 transition-colors underline underline-offset-2">Print Page</a>
+          <!-- Circular pill links -->
+          <div class="flex flex-wrap items-center gap-2.5 text-xs font-bold">
+            <a
+              href="/resume.pdf"
+              download="Cam McOrist - Resume.pdf"
+              class="px-4 py-2 rounded-full bg-mustard-500 text-espresso-950 hover:bg-mustard-400 transition-colors shadow-sm"
+            >
+              Download PDF
+            </a>
+            <a
+              href="/resume.docx"
+              download="Cam McOrist - Resume.docx"
+              class="px-4 py-2 rounded-full bg-espresso-800 text-cream-100 hover:bg-espresso-700 border border-espresso-600 transition-colors"
+            >
+              Download Word (.docx)
+            </a>
+            <a
+              href="/print"
+              target="_blank"
+              class="px-4 py-2 rounded-full bg-espresso-800 text-mustard-300 hover:text-white hover:bg-espresso-700 border border-espresso-600 transition-colors"
+            >
+              Print Clean View
+            </a>
           </div>
         </div>
 
-        <div class="mt-8 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 dark:text-zinc-500 gap-2">
-          <p>© {new Date().getFullYear()} {personal.name}. Built with Astro & Tailwind CSS.</p>
-          <p class="font-mono">{personal.website.replace('https://', '')}</p>
+        <div class="mt-10 pt-6 border-t border-espresso-800 flex flex-col sm:flex-row items-center justify-between text-xs text-espresso-400 gap-3">
+          <p>© {new Date().getFullYear()} {personal.name}. Crafted with 70s flair, modern Astro & Tailwind CSS.</p>
+          <p class="font-mono text-mustard-400">{personal.website.replace('https://', '')}</p>
         </div>
       </div>
     </footer>
