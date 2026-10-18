@@ -2,9 +2,9 @@
 import { resume } from '../data/resume';
 import '../styles/global.css';
 
-const { personal, leadershipExperience, previousExperience, professionalDevelopment } = resume;
-const aesopRole = leadershipExperience.find(r => r.company.includes('Aesop'))!;
-const stargateRole = leadershipExperience.find(r => r.company.includes('Stargate'))!;
+const { personal, highlights, leadershipExperience, previousExperience, professionalDevelopment } = resume;
+const aesopRole = leadershipExperience.find((r) => r.company.includes('Aesop'))!;
+const stargateRole = leadershipExperience.find((r) => r.company.includes('Stargate'))!;
 ---
 
 <!doctype html>
@@ -13,82 +13,150 @@ const stargateRole = leadershipExperience.find(r => r.company.includes('Stargate
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{personal.name} - Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
       @page {
         size: A4 portrait;
-        margin: 12mm 15mm 12mm 15mm;
+        margin: 7mm 11mm 7mm 11mm;
+      }
+      @media print {
+        html,
+        body {
+          background-color: #ffffff !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
       }
       body {
-        background: #ffffff;
-        color: #241710;
+        background-color: #ffffff;
+        color: #1a110b;
         font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        font-size: 8.8pt;
-        line-height: 1.35;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
       .page-break {
-        page-break-before: always;
         break-before: page;
+        page-break-before: always;
       }
-      .avoid-break {
-        break-inside: avoid;
-        page-break-inside: avoid;
+      .page-container {
+        box-sizing: border-box;
+        height: 281mm;
+        max-height: 281mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
       }
     </style>
   </head>
   <body class="bg-white text-espresso-950 max-w-[210mm] mx-auto p-0">
-    <!-- PAGE 1 -->
-    <div class="min-h-[268mm] flex flex-col justify-between">
-      <div>
-        <!-- Name Header with 70s Flair -->
-        <header class="border-b-2 border-[#D99B26] pb-2.5 mb-3.5">
-          <h1 class="text-3xl font-serif font-black text-espresso-950 tracking-tight">{personal.name}</h1>
-          <p class="text-[10pt] font-serif italic font-bold text-mustard-600 mt-0.5">{personal.title}</p>
+    <!-- ================= PAGE 1 ================= -->
+    <div class="page-container">
+      <div class="space-y-3.5">
+        <!-- Header -->
+        <header class="border-b-2 border-mustard-500 pb-3">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-[27pt] font-serif font-black text-espresso-950 tracking-normal leading-none">
+                {personal.name}
+              </h1>
+              <p class="text-[11.5pt] font-serif italic font-bold text-mustard-600 mt-1">
+                {personal.title}
+              </p>
+            </div>
+            <!-- Quick Pill Badge -->
+            <div class="text-right pt-0.5">
+              <span class="inline-block text-[7.5pt] font-mono font-bold uppercase tracking-wider text-espresso-800 bg-cream-200 border border-cream-300 px-3 py-1 rounded-full shadow-sm">
+                {personal.location} • {personal.citizenship}
+              </span>
+            </div>
+          </div>
 
-          <p class="text-[8.5pt] text-espresso-600 mt-1.5 flex flex-wrap items-center gap-x-2 font-medium">
-            <span>{personal.location}</span>
-            <span>•</span>
-            <span>{personal.citizenship}</span>
-            <span>•</span>
+          <!-- Contact Details Bar -->
+          <div class="text-[8.2pt] text-espresso-700 mt-2.5 flex flex-wrap items-center gap-x-3 font-medium">
             <span>{personal.phone}</span>
-            <span>•</span>
-            <a href={`mailto:${personal.email}`} class="text-espresso-900 font-bold underline underline-offset-2">{personal.email}</a>
-            <span>•</span>
-            <a href={personal.website} class="text-espresso-900 font-bold underline underline-offset-2">{personal.website.replace('https://', '')}</a>
-          </p>
+            <span class="text-mustard-500 font-bold">•</span>
+            <a href={`mailto:${personal.email}`} class="text-espresso-900 font-semibold underline underline-offset-2">
+              {personal.email}
+            </a>
+            <span class="text-mustard-500 font-bold">•</span>
+            <a href={personal.website} class="text-espresso-900 font-semibold underline underline-offset-2">
+              {personal.website.replace('https://', '')}
+            </a>
+          </div>
         </header>
 
-        <!-- Summary -->
-        <section class="mb-4">
-          <h2 class="text-[10.5pt] font-serif font-black text-espresso-950 uppercase tracking-wider border-b border-cream-300 pb-0.5 mb-1.5 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-mustard-500 inline-block"></span>
-            <span>Summary</span>
-          </h2>
-          <p class="text-[8.8pt] text-espresso-900 leading-relaxed text-justify">
+        <!-- Highlights Stat Cards -->
+        <section class="grid grid-cols-4 gap-2.5">
+          {highlights.map((h) => (
+            <div class="bg-cream-100/80 border border-cream-300 rounded-xl px-3 py-2 flex flex-col justify-between min-h-[50px]">
+              <span class="font-serif font-black text-mustard-600 text-[12pt] leading-tight">
+                {h.metric}
+              </span>
+              <span class="font-mono text-[6.8pt] font-semibold text-espresso-700 leading-tight uppercase tracking-wider mt-0.5">
+                {h.label}
+              </span>
+            </div>
+          ))}
+        </section>
+
+        <!-- Executive Summary -->
+        <section>
+          <div class="flex items-center gap-2 border-b border-cream-300 pb-1 mb-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-mustard-500"></span>
+            <h2 class="text-[9.5pt] font-serif font-black text-espresso-950 uppercase tracking-widest">
+              Executive Summary
+            </h2>
+          </div>
+          <p class="text-[8.3pt] text-espresso-900 leading-[1.42]">
             {personal.summary}
           </p>
         </section>
 
         <!-- Employment History (Aesop) -->
-        <section>
-          <h2 class="text-[10.5pt] font-serif font-black text-espresso-950 uppercase tracking-wider border-b border-cream-300 pb-0.5 mb-2.5 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-mustard-500 inline-block"></span>
-            <span>Employment History</span>
-          </h2>
+        <section class="space-y-2.5">
+          <div class="flex items-center gap-2 border-b border-cream-300 pb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-mustard-500"></span>
+            <h2 class="text-[9.5pt] font-serif font-black text-espresso-950 uppercase tracking-widest">
+              Employment History
+            </h2>
+          </div>
 
-          <!-- Aesop Role -->
-          <article class="avoid-break">
-            <div class="flex items-baseline justify-between mb-0.5">
-              <h3 class="text-[10pt] font-bold text-espresso-950">
-                {aesopRole.role} <span class="font-normal text-espresso-600">— {aesopRole.company} ({aesopRole.industry})</span>
-              </h3>
-              <span class="text-[8pt] font-bold font-mono text-espresso-600 bg-cream-200 px-2 py-0.5 rounded-full">{aesopRole.period}</span>
+          <article>
+            <div class="flex items-baseline justify-between mb-2">
+              <div>
+                <h3 class="text-[10pt] font-bold text-espresso-950 inline">
+                  {aesopRole.role}
+                </h3>
+                <span class="text-[9pt] font-medium text-espresso-700">
+                  {' '}— {aesopRole.company} ({aesopRole.industry})
+                </span>
+              </div>
+              <span class="text-[7.5pt] font-bold font-mono text-espresso-800 bg-cream-200 border border-cream-300 px-2.5 py-0.5 rounded-full shrink-0 ml-2">
+                {aesopRole.period}
+              </span>
             </div>
 
-            <div class="space-y-2 mt-2">
+            <!-- Achievements -->
+            <div class="space-y-2">
               {aesopRole.achievements.map((ach) => (
-                <div class="text-[8.5pt] text-espresso-900 leading-snug">
-                  <span class="font-bold text-espresso-950">• {ach.title}: </span>
-                  <span>{ach.description}</span>
+                <div class="text-[8.2pt] leading-[1.38] pl-2.5 border-l-2 border-mustard-400">
+                  <span class="font-bold text-espresso-950">{ach.title}: </span>
+                  <span class="text-espresso-900">{ach.description}</span>
+                  {ach.tags && ach.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-1 mt-1">
+                      {ach.tags.map((tag) => (
+                        <span class="text-[6.6pt] font-mono font-medium text-espresso-700 bg-cream-100 border border-cream-300 px-1.5 py-0.2 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -96,34 +164,58 @@ const stargateRole = leadershipExperience.find(r => r.company.includes('Stargate
         </section>
       </div>
 
-      <!-- Footer for Page 1 -->
-      <div class="text-[7.5pt] text-espresso-400 font-mono flex justify-between border-t border-cream-200 pt-2 pb-1 mt-4">
-        <span>{personal.name} • Resume</span>
-        <span>Page 1 of 2</span>
-      </div>
+      <!-- Page 1 Footer -->
+      <footer class="text-[7.2pt] text-espresso-500 font-mono flex justify-between border-t border-cream-300 pt-2 pb-0.5">
+        <span>{personal.name.toUpperCase()} • {personal.title.toUpperCase()}</span>
+        <span>PAGE 1 OF 2</span>
+      </footer>
     </div>
 
-    <!-- PAGE BREAK -->
+    <!-- ================= PAGE BREAK ================= -->
     <div class="page-break"></div>
 
-    <!-- PAGE 2 -->
-    <div class="min-h-[268mm] flex flex-col justify-between pt-2">
-      <div>
-        <!-- Stargate Tech Role -->
-        <section class="mb-5">
-          <article class="avoid-break">
-            <div class="flex items-baseline justify-between mb-0.5">
-              <h3 class="text-[10pt] font-bold text-espresso-950">
-                {stargateRole.role} <span class="font-normal text-espresso-600">— {stargateRole.company} ({stargateRole.industry})</span>
-              </h3>
-              <span class="text-[8pt] font-bold font-mono text-espresso-600 bg-cream-200 px-2 py-0.5 rounded-full">{stargateRole.period}</span>
+    <!-- ================= PAGE 2 ================= -->
+    <div class="page-container">
+      <div class="space-y-3.5">
+        <!-- Employment History Continued (Stargate Tech) -->
+        <section class="space-y-2.5">
+          <div class="flex items-center gap-2 border-b border-cream-300 pb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-mustard-500"></span>
+            <h2 class="text-[9.5pt] font-serif font-black text-espresso-950 uppercase tracking-widest">
+              Employment History (Continued)
+            </h2>
+          </div>
+
+          <article>
+            <div class="flex items-baseline justify-between mb-2">
+              <div>
+                <h3 class="text-[10pt] font-bold text-espresso-950 inline">
+                  {stargateRole.role}
+                </h3>
+                <span class="text-[9pt] font-medium text-espresso-700">
+                  {' '}— {stargateRole.company} ({stargateRole.industry})
+                </span>
+              </div>
+              <span class="text-[7.5pt] font-bold font-mono text-espresso-800 bg-cream-200 border border-cream-300 px-2.5 py-0.5 rounded-full shrink-0 ml-2">
+                {stargateRole.period}
+              </span>
             </div>
 
-            <div class="space-y-2 mt-2">
+            <!-- Achievements -->
+            <div class="space-y-2">
               {stargateRole.achievements.map((ach) => (
-                <div class="text-[8.5pt] text-espresso-900 leading-snug">
-                  <span class="font-bold text-espresso-950">• {ach.title}: </span>
-                  <span>{ach.description}</span>
+                <div class="text-[8.2pt] leading-[1.38] pl-2.5 border-l-2 border-mustard-400">
+                  <span class="font-bold text-espresso-950">{ach.title}: </span>
+                  <span class="text-espresso-900">{ach.description}</span>
+                  {ach.tags && ach.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-1 mt-1">
+                      {ach.tags.map((tag) => (
+                        <span class="text-[6.6pt] font-mono font-medium text-espresso-700 bg-cream-100 border border-cream-300 px-1.5 py-0.2 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -131,51 +223,74 @@ const stargateRole = leadershipExperience.find(r => r.company.includes('Stargate
         </section>
 
         <!-- Previous Experience -->
-        <section class="mb-5 avoid-break">
-          <h2 class="text-[10.5pt] font-serif font-black text-espresso-950 uppercase tracking-wider border-b border-cream-300 pb-0.5 mb-2 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-rust-500 inline-block"></span>
-            <span>Previous Experience ({previousExperience.period})</span>
-          </h2>
-          <div class="space-y-1.5">
+        <section>
+          <div class="flex items-center gap-2 border-b border-cream-300 pb-1 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rust-500"></span>
+            <h2 class="text-[9.5pt] font-serif font-black text-espresso-950 uppercase tracking-widest">
+              Previous Experience ({previousExperience.period})
+            </h2>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
             {previousExperience.roles.map((prev) => (
-              <div class="text-[8.5pt] text-espresso-900 leading-snug">
-                <span class="font-bold text-espresso-950">• {prev.role} | {prev.company}{prev.location ? ` (${prev.location})` : ''}: </span>
-                <span>{prev.description}</span>
+              <div class="bg-cream-50/90 border border-cream-300 rounded-xl p-2.5 text-[8.1pt] leading-snug">
+                <div class="font-bold text-espresso-950">
+                  {prev.role} <span class="text-espresso-600 font-normal">| {prev.company}{prev.location ? ` (${prev.location})` : ''}</span>
+                </div>
+                <div class="text-espresso-800 text-[7.8pt] mt-1">
+                  {prev.description}
+                </div>
               </div>
             ))}
           </div>
         </section>
 
         <!-- Professional Development & Certifications -->
-        <section class="avoid-break">
-          <h2 class="text-[10.5pt] font-serif font-black text-espresso-950 uppercase tracking-wider border-b border-cream-300 pb-0.5 mb-2 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-avocado-500 inline-block"></span>
-            <span>Professional Development & Certifications</span>
-          </h2>
+        <section class="space-y-2.5">
+          <div class="flex items-center gap-2 border-b border-cream-300 pb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-avocado-500"></span>
+            <h2 class="text-[9.5pt] font-serif font-black text-espresso-950 uppercase tracking-widest">
+              Professional Development & Certifications
+            </h2>
+          </div>
 
-          <div class="space-y-1.5 text-[8.5pt] text-espresso-900">
-            <div>
-              <span class="font-bold text-espresso-950">ISTQB Certifications: </span>
-              <span>
-                {professionalDevelopment.istqbCertifications.map(c => `${c.title} (${c.year}) – ${c.issuer}`).join(' • ')}
+          <div class="space-y-2.5">
+            <!-- Certifications -->
+            <div class="bg-cream-50/90 border border-cream-300 rounded-xl p-2.5">
+              <span class="font-bold text-espresso-950 text-[8.3pt] block mb-1.5">
+                ISTQB Certifications:
               </span>
+              <div class="flex flex-wrap gap-2">
+                {professionalDevelopment.istqbCertifications.map((cert) => (
+                  <span class="inline-flex items-center text-[7.6pt] font-mono bg-cream-100 text-espresso-900 border border-cream-300 px-2.5 py-1 rounded-lg">
+                    <span class="font-bold text-mustard-700 mr-1.5">✓</span>
+                    <span>{cert.title} ({cert.year}) — {cert.issuer}</span>
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div>
-              <span class="font-bold text-espresso-950">Technical Skill Expansion: </span>
-              <span>
-                {professionalDevelopment.technicalSkills.join(', ')}.
+            <!-- Technical Skills -->
+            <div class="bg-cream-50/90 border border-cream-300 rounded-xl p-2.5">
+              <span class="font-bold text-espresso-950 text-[8.3pt] block mb-1.5">
+                Technical Skill Expansion:
               </span>
+              <div class="flex flex-wrap gap-1.5">
+                {professionalDevelopment.technicalSkills.map((skill) => (
+                  <span class="text-[7.4pt] font-mono font-medium text-espresso-900 bg-cream-100 border border-cream-300 px-2.5 py-0.5 rounded-full">
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       </div>
 
-      <!-- Footer for Page 2 -->
-      <div class="text-[7.5pt] text-espresso-400 font-mono flex justify-between border-t border-cream-200 pt-2 pb-1 mt-4">
-        <span>{personal.name} • {personal.website.replace('https://', '')}</span>
-        <span>Page 2 of 2</span>
-      </div>
+      <!-- Page 2 Footer -->
+      <footer class="text-[7.2pt] text-espresso-500 font-mono flex justify-between border-t border-cream-300 pt-2 pb-0.5">
+        <span>{personal.name.toUpperCase()} • {personal.website.replace('https://', '').toUpperCase()}</span>
+        <span>PAGE 2 OF 2</span>
+      </footer>
     </div>
   </body>
 </html>
