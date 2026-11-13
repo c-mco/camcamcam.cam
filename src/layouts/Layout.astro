@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { resume } from '../data/resume';
-import { FileText, Download, Printer, Moon, Sun, Sparkles } from '@lucide/astro';
+import { Download, FileText, Moon, Sun } from '@lucide/astro';
 
 interface Props {
   title?: string;
@@ -24,163 +24,93 @@ const { personal } = resume;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#F3C443" />
 
-    <!-- Open Graph / Meta -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={personal.website} />
 
-    <!-- Inline script to avoid theme flash -->
     <script is:inline>
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
     </script>
   </head>
-  <body class="bg-cream-100 dark:bg-espresso-900 text-espresso-900 dark:text-cream-100 transition-colors duration-200 min-h-screen flex flex-col antialiased selection:bg-mustard-500 selection:text-espresso-900">
-    <!-- Accessible Skip to Content -->
+  <body class="bg-canvas text-ink min-h-screen flex flex-col antialiased">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-5 focus:py-2.5 focus:bg-espresso-900 focus:text-mustard-300 dark:focus:bg-mustard-400 dark:focus:text-espresso-950 rounded-full font-bold shadow-xl outline-none ring-4 ring-mustard-500"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-5 focus:py-2.5 bg-card rounded-full font-bold border-[3px] border-ink"
     >
       Skip to content
     </a>
 
-    <!-- Sticky Funky Navigation Header -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-cream-100/90 dark:bg-espresso-900/90 border-b-2 border-cream-300 dark:border-espresso-700 transition-colors">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 h-18 py-3 flex items-center justify-between">
-        <!-- Logo Brand -->
-        <a href="/" class="group flex items-center gap-3 outline-none">
-          <div class="relative w-10 h-10 rounded-full bg-mustard-500 dark:bg-mustard-400 text-espresso-950 flex items-center justify-center font-serif font-black text-sm tracking-tight border-2 border-espresso-800 dark:border-espresso-950 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-            CM
-            <div class="absolute -inset-1 rounded-full border border-dashed border-mustard-600/40 dark:border-mustard-300/40 pointer-events-none animate-spin-slow"></div>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-serif font-black text-xl tracking-tight text-espresso-900 dark:text-cream-50 group-hover:text-mustard-600 dark:group-hover:text-mustard-400 transition-colors">
-              {personal.name}
-            </span>
-            <span class="text-[11px] font-mono uppercase tracking-widest text-espresso-500 dark:text-espresso-300 -mt-0.5">
-              camcamcam.cam
-            </span>
-          </div>
+    <header class="sticky top-0 z-40 w-full bg-canvas border-b-[3px] border-ink">
+      <div class="stripes-h h-4" aria-hidden="true"></div>
+      <div class="wrap h-16 flex items-center justify-between gap-3">
+        <a href="/" class="group flex items-center gap-3 min-w-0">
+          <svg class="w-9 h-9 shrink-0 transition-transform duration-500 group-hover:rotate-180" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="20" fill="var(--s4)" />
+            <circle cx="20" cy="20" r="14" fill="var(--s3)" />
+            <circle cx="20" cy="20" r="8" fill="var(--s1)" />
+          </svg>
+          <span class="font-display text-xl sm:text-2xl tracking-tight truncate">{personal.name}</span>
         </a>
 
-        <!-- Navigation actions -->
-        <div class="flex items-center gap-2 sm:gap-3">
-          <!-- Download PDF (Mustard Pill) -->
+        <nav class="flex items-center gap-2 sm:gap-3" aria-label="Resume downloads">
           <a
             href="/resume.pdf"
             download="Cam McOrist - Resume.pdf"
-            title="Download PDF version of resume"
-            class="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-bold rounded-full bg-mustard-500 text-espresso-950 hover:bg-mustard-400 border-2 border-espresso-900 dark:border-mustard-200 shadow-[2px_2px_0px_0px_#281A12] dark:shadow-[2px_2px_0px_0px_#EBBF50] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-500"
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-[3px] border-ink bg-[var(--s1)] text-[#24140A] text-sm font-extrabold hover:bg-[var(--s2)] transition-colors"
           >
-            <Download class="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>PDF</span>
+            <Download class="w-4 h-4" stroke-width={2.75} />
+            PDF
           </a>
-
-          <!-- Download Word (Cream / Brown Pill) -->
           <a
             href="/resume.docx"
             download="Cam McOrist - Resume.docx"
-            title="Download Microsoft Word .docx version of resume"
-            class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-bold rounded-full bg-cream-50 dark:bg-espresso-800 text-espresso-900 dark:text-cream-100 hover:bg-cream-200 dark:hover:bg-espresso-700 border-2 border-espresso-700 dark:border-espresso-500 shadow-[2px_2px_0px_0px_#4A3326] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-500"
+            class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-[3px] border-ink bg-card text-sm font-extrabold hover:bg-[var(--s1)] hover:text-[#24140A] transition-colors"
           >
-            <FileText class="w-3.5 h-3.5 text-rust-500 stroke-[2.5]" />
-            <span class="hidden xs:inline">Word</span>
-            <span class="xs:hidden">DOCX</span>
+            <FileText class="w-4 h-4" stroke-width={2.75} />
+            Word
           </a>
-
-          <!-- Print View Link -->
-          <a
-            href="/print"
-            target="_blank"
-            title="Open print-optimized view"
-            class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-full text-espresso-600 dark:text-espresso-300 hover:text-espresso-950 dark:hover:text-white hover:bg-cream-200 dark:hover:bg-espresso-800 transition-colors"
-          >
-            <Printer class="w-3.5 h-3.5" />
-            <span>Print View</span>
-          </a>
-
-          <div class="w-px h-6 bg-cream-300 dark:bg-espresso-700 mx-1 hidden sm:block"></div>
-
-          <!-- Theme Toggle (Circular Button) -->
           <button
             id="theme-toggle"
             type="button"
-            aria-label="Toggle visual theme (dark or light mode)"
-            class="w-10 h-10 rounded-full border-2 border-espresso-800 dark:border-cream-300 bg-cream-50 dark:bg-espresso-800 text-espresso-900 dark:text-mustard-400 flex items-center justify-center hover:bg-mustard-100 dark:hover:bg-espresso-700 shadow-[2px_2px_0px_0px_#281A12] dark:shadow-[2px_2px_0px_0px_#EADDC7] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-500"
+            aria-label="Toggle dark mode"
+            class="w-10 h-10 rounded-full border-[3px] border-ink bg-card flex items-center justify-center hover:bg-[var(--s1)] hover:text-[#24140A] transition-colors"
           >
-            <Sun class="w-4 h-4 hidden dark:block stroke-[2.5]" />
-            <Moon class="w-4 h-4 block dark:hidden stroke-[2.5]" />
+            <Sun class="w-4 h-4 hidden dark:block" stroke-width={2.75} />
+            <Moon class="w-4 h-4 block dark:hidden" stroke-width={2.75} />
           </button>
-        </div>
+        </nav>
       </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main id="main-content" class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <main id="main-content" class="flex-grow w-full">
       <slot />
     </main>
 
-    <!-- 60s/70s Funky Footer -->
-    <footer class="border-t-4 border-mustard-500 mt-20 bg-espresso-900 text-cream-100 py-14 transition-colors">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div class="space-y-2">
-            <div class="flex items-center gap-3">
-              <span class="w-8 h-8 rounded-full bg-mustard-500 text-espresso-950 flex items-center justify-center font-serif font-black text-xs border border-mustard-300">
-                CM
-              </span>
-              <p class="font-serif font-bold text-xl text-cream-50 tracking-tight">
-                {personal.name}
-              </p>
-            </div>
-          </div>
-
-          <!-- Circular pill links -->
-          <div class="flex flex-wrap items-center gap-2.5 text-xs font-bold">
-            <a
-              href="/resume.pdf"
-              download="Cam McOrist - Resume.pdf"
-              class="px-4 py-2 rounded-full bg-mustard-500 text-espresso-950 hover:bg-mustard-400 transition-colors shadow-sm"
-            >
-              Download PDF
-            </a>
-            <a
-              href="/resume.docx"
-              download="Cam McOrist - Resume.docx"
-              class="px-4 py-2 rounded-full bg-espresso-800 text-cream-100 hover:bg-espresso-700 border border-espresso-600 transition-colors"
-            >
-              Download Word (.docx)
-            </a>
-            <a
-              href="/print"
-              target="_blank"
-              class="px-4 py-2 rounded-full bg-espresso-800 text-mustard-300 hover:text-white hover:bg-espresso-700 border border-espresso-600 transition-colors"
-            >
-              Print Clean View
-            </a>
-          </div>
-        </div>
-
-        <div class="mt-10 pt-6 border-t border-espresso-800 flex flex-col sm:flex-row items-center justify-between text-xs text-espresso-400 gap-3">
-          <p>© {new Date().getFullYear()} {personal.name}. </p>
-          <p class="font-mono text-mustard-400">{personal.website.replace('https://', '')}</p>
+    <footer class="bg-[#24140A] text-[#FBEFD9] dark:bg-[#120B06]">
+      <div class="wrap py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+        <p class="font-display text-lg">© {new Date().getFullYear()} {personal.name}</p>
+        <div class="flex items-center gap-5 font-mono text-xs">
+          <a href="/print" target="_blank" class="underline decoration-2 underline-offset-4 decoration-[var(--s2)] hover:text-[var(--s1)]">Print view</a>
+          <span class="text-[var(--s1)]">{personal.website.replace('https://', '')}</span>
         </div>
       </div>
+      <div class="stripes-h h-10" aria-hidden="true"></div>
     </footer>
 
-    <!-- Client-side theme switch behavior -->
     <script>
       const toggle = document.getElementById('theme-toggle');
       toggle?.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
       });
     </script>
   </body>

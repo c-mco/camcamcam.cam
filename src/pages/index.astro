@@ -1,398 +1,241 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Bend from '../components/Bend.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Sunrise from '../components/Sunrise.astro';
 import { resume } from '../data/resume';
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Globe,
-  Download,
-  FileText,
-  Printer,
-  Award,
-  Sparkles,
-  ArrowUpRight,
-  ShieldCheck,
-  CheckCircle,
-  Terminal,
-} from '@lucide/astro';
+import { Mail, Phone, Globe, MapPin, Download, FileText, Printer } from '@lucide/astro';
 
 const { personal, highlights, leadershipExperience, previousExperience, professionalDevelopment } = resume;
+
+const [firstName, ...rest] = personal.name.split(' ');
+const lastName = rest.join(' ');
+
+// Fill colour + matching text colour for each stripe swatch
+const swatches = [
+  { bg: 'bg-[var(--s1)]', fg: 'text-[#24140A]' },
+  { bg: 'bg-[var(--s2)]', fg: 'text-[#24140A]' },
+  { bg: 'bg-[var(--s3)]', fg: 'text-[#24140A]' },
+  { bg: 'bg-[var(--s4)]', fg: 'text-[#FFF6E5]' },
+];
+const sw = (i: number) => swatches[i % swatches.length];
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <Layout>
-  <!-- HERO SECTION WITH RETRO CIRCLES & WARM MUSTARDS -->
-  <section class="relative py-8 sm:py-14 border-b-2 border-cream-300 dark:border-espresso-700 overflow-hidden">
-    <!-- Decorative 60s/70s ambient circles in background -->
-    <div class="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-mustard-400/20 dark:bg-mustard-500/10 blur-2xl pointer-events-none"></div>
-    <div class="absolute top-1/2 -left-20 w-72 h-72 rounded-full bg-rust-500/15 dark:bg-rust-500/10 blur-3xl pointer-events-none"></div>
+  <!-- ─── HERO: stripes run in from the left and bend up the right wall ─── -->
+  <section class="relative overflow-hidden border-b-[3px] border-ink" aria-labelledby="hero-name">
+    <Bend w={14} r={44} mR={14} class="absolute right-0 bottom-0 sm:hidden" />
+    <Bend w={22} r={80} mR={32} class="absolute right-0 bottom-0 hidden sm:block lg:hidden" />
+    <Bend w={34} r={130} mR={56} class="absolute right-0 bottom-0 hidden lg:block" />
 
-    <div class="relative flex flex-col lg:flex-row lg:items-center justify-between gap-10">
-      <div class="space-y-5 max-w-2xl">
-        <!-- Live status pill with circular pulse -->
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-mustard-100 dark:bg-espresso-800 text-espresso-900 dark:text-mustard-300 border-2 border-mustard-400 dark:border-mustard-600 shadow-sm">
-          <span class="w-2.5 h-2.5 rounded-full bg-mustard-500 dark:bg-mustard-400 animate-ping"></span>
-          <span>{personal.location} • {personal.citizenship}</span>
+    <div class="wrap relative pt-12 sm:pt-16 lg:pt-20 pb-[150px] sm:pb-[240px] lg:pb-[260px]">
+      <div class="pr-24 sm:pr-48 lg:pr-0 lg:max-w-[62%]">
+        <p class="inline-flex flex-wrap items-center gap-x-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-ink-muted">
+          <MapPin class="w-3.5 h-3.5" stroke-width={2.5} aria-hidden="true" />
+          {personal.location}<span aria-hidden="true">·</span>{personal.citizenship}
+        </p>
+
+        <h1 id="hero-name" class="font-display tracking-tight leading-[0.82] mt-5 text-[clamp(3.6rem,15vw,10rem)]">
+          <span class="block">{firstName}</span>
+          <span class="block">{lastName}</span>
+        </h1>
+
+        <p class="inline-block mt-6 sm:mt-8 px-5 py-2 rounded-full bg-[var(--s4)] text-[#FFF6E5] font-display text-xl sm:text-3xl tracking-tight">
+          {personal.title}
+        </p>
+
+        <ul class="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-3 text-sm sm:text-base font-semibold">
+          <li>
+            <a href={`mailto:${personal.email}`} class="inline-flex items-center gap-2 underline decoration-[3px] underline-offset-4 decoration-[var(--s2)] hover:decoration-[var(--s4)] break-all">
+              <Mail class="w-4 h-4 shrink-0" stroke-width={2.5} aria-hidden="true" />{personal.email}
+            </a>
+          </li>
+          <li>
+            <a href={`tel:${personal.phone.replace(/\s+/g, '')}`} class="inline-flex items-center gap-2 underline decoration-[3px] underline-offset-4 decoration-[var(--s2)] hover:decoration-[var(--s4)]">
+              <Phone class="w-4 h-4 shrink-0" stroke-width={2.5} aria-hidden="true" />{personal.phone}
+            </a>
+          </li>
+          <li>
+            <a href={personal.website} class="inline-flex items-center gap-2 underline decoration-[3px] underline-offset-4 decoration-[var(--s2)] hover:decoration-[var(--s4)]">
+              <Globe class="w-4 h-4 shrink-0" stroke-width={2.5} aria-hidden="true" />{personal.website.replace('https://', '')}
+            </a>
+          </li>
+        </ul>
+
+        <div class="mt-9 flex flex-wrap items-center gap-3 sm:gap-4">
+          <a href="/resume.pdf" download="Cam McOrist - Resume.pdf" class="btn bg-[#24140A] text-[var(--s1)] dark:bg-[var(--s1)] dark:text-[#24140A]">
+            <Download class="w-4 h-4" stroke-width={2.75} aria-hidden="true" /> Resume PDF
+          </a>
+          <a href="/resume.docx" download="Cam McOrist - Resume.docx" class="btn bg-card">
+            <FileText class="w-4 h-4" stroke-width={2.75} aria-hidden="true" /> Word
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── METRICS: four arches ─── -->
+  <section class="bg-[#24140A] dark:bg-[#120B06] text-[#FBEFD9]" aria-label="Highlights">
+    <div class="wrap pt-14 sm:pt-20">
+      <ul class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 items-end">
+        {highlights.map((item, i) => (
+          <li class={`${sw(i).bg} ${sw(i).fg} rounded-t-full px-4 sm:px-6 pt-[42%] pb-6 sm:pb-8 text-center flex flex-col items-center justify-end ${i % 2 ? 'lg:min-h-[19rem]' : 'lg:min-h-[22rem]'}`}>
+            <span class="font-display leading-[0.9] tracking-tight text-[clamp(2.1rem,6.5vw,3.75rem)]">{item.metric}</span>
+            <span class="mt-3 text-xs sm:text-sm font-bold leading-snug max-w-[14ch]">{item.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── 01 SUMMARY ─── -->
+  <section class="py-20 sm:py-28" aria-labelledby="summary-h">
+    <div class="wrap">
+      <SectionHead num="01" title="Summary" kicker="Leadership · Quality culture" id="summary-h" />
+      <div class="grid lg:grid-cols-[1fr_minmax(0,46rem)] gap-8">
+        <div class="hidden lg:block stripes-v rounded-t-full w-[150px] h-full min-h-[14rem] justify-self-start" aria-hidden="true"></div>
+        <p class="font-display font-medium text-[clamp(1.3rem,2.6vw,1.9rem)] leading-[1.35] tracking-tight" style="font-weight: 500;">
+          {personal.summary}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 02 EXPERIENCE ─── -->
+  <section class="pb-20 sm:pb-28" aria-labelledby="exp-h">
+    <div class="wrap">
+      <SectionHead num="02" title="Employment History" kicker="Engineering leadership" id="exp-h" />
+      <p class="max-w-2xl text-base sm:text-lg font-medium text-ink-muted -mt-4 mb-14">
+        Architecting testing frameworks, CI/CD governance, AI-assisted migration, and inclusive engineering culture across enterprise retail and fintech.
+      </p>
+
+      <div class="space-y-20 sm:space-y-28">
+        {leadershipExperience.map((job) => (
+          <article aria-label={`${job.role}, ${job.company}`}>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h3 class="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[0.95] tracking-tight">{job.company}</h3>
+                <p class="mt-2 text-lg sm:text-xl font-bold">
+                  {job.role}
+                  <span class="text-ink-muted font-semibold"> · {job.industry}</span>
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 font-mono text-xs sm:text-sm font-bold">
+                <span class="px-3.5 py-1.5 rounded-full bg-[#24140A] text-[var(--s1)] dark:bg-[var(--s1)] dark:text-[#24140A]">{job.period}</span>
+                <span class="px-3.5 py-1.5 rounded-full border-[3px] border-ink">{job.location}</span>
+              </div>
+            </div>
+
+            <!-- racing stripe: bleeds off the left edge, rounds off on the right -->
+            <div
+              class="stripes-h h-8 sm:h-10 mt-6 mb-10 rounded-r-full ml-[calc((100%_-_100vw)/2)] w-[calc(100%_+_(100vw_-_100%)/2)]"
+              aria-hidden="true"
+            ></div>
+
+            <ol class="grid md:grid-cols-2 gap-x-10 gap-y-10">
+              {job.achievements.map((ach, i) => (
+                <li class="flex gap-4">
+                  <span class={`${sw(i).bg} ${sw(i).fg} shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display text-lg border-[3px] border-ink`} aria-hidden="true">
+                    {pad(i + 1)}
+                  </span>
+                  <div class="min-w-0">
+                    <h4 class="text-lg font-extrabold leading-tight">{ach.title}</h4>
+                    <p class="mt-2 text-[15px] leading-relaxed text-ink-muted">{ach.description}</p>
+                    <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="Tools and topics">
+                      {ach.tags.map((tag) => (
+                        <li class="px-2.5 py-0.5 rounded-full border-2 border-ink text-[11px] font-mono font-bold">{tag}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 03 PRIOR EXPERIENCE ─── -->
+  <section class="py-20 sm:py-28 bg-card border-y-[3px] border-ink" aria-labelledby="prior-h">
+    <div class="wrap">
+      <SectionHead num="03" title="Previous Experience" kicker={previousExperience.period} id="prior-h" />
+      <p class="max-w-2xl text-base sm:text-lg font-medium text-ink-muted -mt-4 mb-12">
+        Core testing fundamentals: hardware/software validation, UAT coordination, national sports technology workflows, and banking POS integrations.
+      </p>
+
+      <ul class="grid sm:grid-cols-2 gap-6">
+        {previousExperience.roles.map((prev, i) => (
+          <li class="rounded-[2rem] border-[3px] border-ink overflow-hidden bg-canvas flex flex-col">
+            <div class={`${sw(i).bg} ${sw(i).fg} px-6 pt-6 pb-5 rounded-br-[3rem]`}>
+              <h3 class="font-display text-2xl sm:text-3xl leading-none tracking-tight">{prev.company}</h3>
+              <p class="mt-2 font-mono text-xs font-bold uppercase tracking-wider">
+                {prev.role}{prev.location && <span> · {prev.location}</span>}
+              </p>
+            </div>
+            <p class="px-6 py-5 text-[15px] leading-relaxed text-ink-muted">{prev.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── 04 QUALIFICATIONS ─── -->
+  <section class="py-20 sm:py-28" aria-labelledby="qual-h">
+    <div class="wrap">
+      <SectionHead num="04" title="Professional Development" kicker="Certifications & learning" id="qual-h" />
+
+      <div class="grid lg:grid-cols-2 gap-14 lg:gap-16">
+        <div>
+          <h3 class="font-mono text-xs font-bold uppercase tracking-[0.2em] text-ink-muted mb-6">ISTQB Certifications</h3>
+          <ul class="space-y-6">
+            {professionalDevelopment.istqbCertifications.map((cert, i) => (
+              <li class="flex items-center gap-5">
+                <span class="relative shrink-0 w-24 h-24 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <span class="absolute inset-0 rounded-full bg-[var(--s4)]"></span>
+                  <span class="absolute inset-[10px] rounded-full bg-[var(--s3)]"></span>
+                  <span class={`absolute inset-[20px] rounded-full ${i ? 'bg-[var(--s2)]' : 'bg-[var(--s1)]'}`}></span>
+                  <span class="relative font-display text-lg text-[#24140A]">{cert.year}</span>
+                </span>
+                <div>
+                  <p class="text-lg font-extrabold leading-tight">{cert.title}</p>
+                  <p class="mt-1 font-mono text-xs font-bold text-ink-muted">{cert.year} · {cert.issuer}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
-          <h1 class="text-5xl sm:text-7xl font-serif font-black text-espresso-950 dark:text-cream-50 tracking-tight leading-[1.02]">
-            {personal.name}
-          </h1>
-          <p class="text-2xl sm:text-3xl font-serif italic font-bold text-mustard-600 dark:text-mustard-400 mt-2">
-            {personal.title}
-          </p>
-        </div>
-
-        <!-- Contact Pills with rounded corners -->
-        <div class="flex flex-wrap gap-2.5 pt-2 text-xs sm:text-sm font-medium">
-          <a
-            href={`mailto:${personal.email}`}
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 dark:bg-espresso-800 border-2 border-cream-300 dark:border-espresso-700 text-espresso-900 dark:text-cream-100 hover:border-mustard-500 hover:text-mustard-700 dark:hover:text-mustard-400 transition-all shadow-sm"
-          >
-            <Mail class="w-3.5 h-3.5 text-rust-500" />
-            <span>{personal.email}</span>
-          </a>
-
-          <a
-            href={`tel:${personal.phone.replace(/\s+/g, '')}`}
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 dark:bg-espresso-800 border-2 border-cream-300 dark:border-espresso-700 text-espresso-900 dark:text-cream-100 hover:border-mustard-500 hover:text-mustard-700 dark:hover:text-mustard-400 transition-all shadow-sm"
-          >
-            <Phone class="w-3.5 h-3.5 text-mustard-600 dark:text-mustard-400" />
-            <span>{personal.phone}</span>
-          </a>
-
-          <a
-            href={personal.website}
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50 dark:bg-espresso-800 border-2 border-cream-300 dark:border-espresso-700 text-espresso-900 dark:text-cream-100 hover:border-mustard-500 hover:text-mustard-700 dark:hover:text-mustard-400 transition-all shadow-sm"
-          >
-            <Globe class="w-3.5 h-3.5 text-espresso-500 dark:text-espresso-300" />
-            <span>{personal.website.replace('https://', '')}</span>
-          </a>
-
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/70 dark:bg-espresso-800/60 border border-cream-300 dark:border-espresso-700 text-espresso-600 dark:text-espresso-300">
-            <MapPin class="w-3.5 h-3.5 text-rust-500" />
-            <span>{personal.location}</span>
-          </span>
+          <h3 class="font-mono text-xs font-bold uppercase tracking-[0.2em] text-ink-muted mb-6">Technical Skill Expansion</h3>
+          <ul class="flex flex-wrap gap-2.5">
+            {professionalDevelopment.technicalSkills.map((skill, i) => (
+              <li class={`${sw(i).bg} ${sw(i).fg} px-4 py-2 rounded-full border-[3px] border-ink text-sm font-extrabold`}>{skill}</li>
+            ))}
+          </ul>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Action Box: Stylized Retro Badge & Download Station -->
-      <div class="relative bg-cream-50 dark:bg-espresso-800/90 p-6 sm:p-7 rounded-3xl border-3 border-espresso-800 dark:border-mustard-400 shadow-[6px_6px_0px_0px_#281A12] dark:shadow-[6px_6px_0px_0px_#EBBF50] flex flex-col gap-4 min-w-[300px]">
-        <!-- Circular Accent Badge in corner -->
-        <div class="flex items-center justify-between pb-1 border-b border-cream-300 dark:border-espresso-700">
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-mustard-500"></span>
-            <span class="w-3 h-3 rounded-full bg-rust-500"></span>
-            <span class="w-3 h-3 rounded-full bg-avocado-500"></span>
-          </div>
-          <span class="text-xs font-mono font-bold uppercase tracking-wider text-espresso-600 dark:text-mustard-300">
-            Resume
-          </span>
-        </div>
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <!-- PDF Pill Button -->
-          <a
-            href="/resume.pdf"
-            download="Cam McOrist - Resume.pdf"
-            class="group flex flex-col items-center justify-center p-3.5 rounded-2xl bg-mustard-500 text-espresso-950 font-bold hover:bg-mustard-400 border-2 border-espresso-900 shadow-[2px_2px_0px_0px_#281A12] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all text-center"
-          >
-            <div class="flex items-center gap-1.5 text-sm">
-              <Download class="w-4 h-4 stroke-[2.5] group-hover:-translate-y-0.5 transition-transform" />
-              <span>PDF</span>
-            </div>
-          </a>
-
-          <!-- Word Pill Button -->
-          <a
-            href="/resume.docx"
-            download="Cam McOrist - Resume.docx"
-            class="group flex flex-col items-center justify-center p-3.5 rounded-2xl bg-cream-100 dark:bg-espresso-900 border-2 border-espresso-800 dark:border-espresso-600 hover:border-mustard-500 text-espresso-950 dark:text-cream-100 shadow-[2px_2px_0px_0px_#4A3326] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all text-center"
-          >
-            <div class="flex items-center gap-1.5 text-sm font-bold">
-              <FileText class="w-4 h-4 text-rust-500 stroke-[2.5] group-hover:-translate-y-0.5 transition-transform" />
-              <span>Word</span>
-            </div>
-          </a>
-        </div>
-
-        <a
-          href="/print"
-          target="_blank"
-          class="inline-flex items-center justify-center gap-2 pt-1 text-xs font-bold text-espresso-600 dark:text-mustard-300 hover:text-espresso-950 dark:hover:text-white transition-colors"
-        >
-          <Printer class="w-3.5 h-3.5" />
-          <span>Open Printable Browser View</span>
-          <ArrowUpRight class="w-3 h-3 opacity-70" />
+  <!-- ─── SUNRISE DOWNLOAD BANNER ─── -->
+  <section class="bg-[#24140A] dark:bg-[#120B06] text-[#FBEFD9] pt-16 sm:pt-20 overflow-hidden [--s5:#8A4826]" aria-labelledby="dl-h">
+    <div class="wrap text-center">
+      <h2 id="dl-h" class="font-display text-[clamp(2.25rem,7vw,4.5rem)] leading-[0.95] tracking-tight">Take it with you</h2>
+      <p class="mt-3 text-base sm:text-lg text-[#E8CFB2]">The same resume, kept in sync — as PDF, Word, or a clean print view.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4 [--border-color:#FBEFD9]">
+        <a href="/resume.pdf" download="Cam McOrist - Resume.pdf" class="btn bg-[var(--s1)] text-[#24140A]">
+          <Download class="w-4 h-4" stroke-width={2.75} aria-hidden="true" /> PDF
+        </a>
+        <a href="/resume.docx" download="Cam McOrist - Resume.docx" class="btn bg-[#24140A] text-[#FBEFD9]">
+          <FileText class="w-4 h-4" stroke-width={2.75} aria-hidden="true" /> Word
+        </a>
+        <a href="/print" target="_blank" class="btn bg-[#24140A] text-[#FBEFD9]">
+          <Printer class="w-4 h-4" stroke-width={2.75} aria-hidden="true" /> Print view
         </a>
       </div>
     </div>
-  </section>
-
-  <!-- CIRCULAR RETRO METRIC HIGHLIGHTS -->
-  <section class="py-10 border-b-2 border-cream-300 dark:border-espresso-700">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-      {highlights.map((item, idx) => (
-        <div class="relative p-5 sm:p-6 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 shadow-sm hover:border-mustard-500 dark:hover:border-mustard-400 transition-all group overflow-hidden">
-          <!-- Subtle decorative circular ring in top corner -->
-          <div class="absolute -right-4 -top-4 w-16 h-16 rounded-full border-4 border-mustard-400/30 dark:border-mustard-400/20 group-hover:scale-125 transition-transform duration-300 pointer-events-none"></div>
-
-          <div class="font-serif font-black text-3xl sm:text-5xl text-espresso-900 dark:text-mustard-300 tracking-tight">
-            {item.metric}
-          </div>
-          <div class="text-xs sm:text-sm font-bold text-espresso-600 dark:text-espresso-300 mt-2 leading-snug">
-            {item.label}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- EXECUTIVE SUMMARY -->
-  <section id="summary" class="py-12 border-b-2 border-cream-300 dark:border-espresso-700">
-    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
-      <div class="md:w-1/4">
-        <!-- Retro label with rounded pill shape -->
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-mustard-500 text-espresso-950">
-          Executive Summary
-        </span>
-        <p class="text-xs font-bold text-espresso-500 dark:text-espresso-400 mt-2">
-          Leadership • Quality Culture
-        </p>
-      </div>
-
-      <div class="md:w-3/4">
-        <div class="p-6 sm:p-8 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-l-6 border-mustard-500 border-t-2 border-r-2 border-b-2 border-cream-300 dark:border-espresso-700 shadow-sm">
-          <p class="text-lg sm:text-xl font-serif text-espresso-900 dark:text-cream-100 leading-relaxed font-normal">
-            {personal.summary}
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LEADERSHIP EMPLOYMENT HISTORY -->
-  <section id="experience" class="py-14 border-b-2 border-cream-300 dark:border-espresso-700">
-    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-10">
-      <div class="md:w-1/4">
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-mustard-500 text-espresso-950">
-          Employment History
-        </span>
-        <p class="text-xs font-bold text-espresso-500 dark:text-espresso-400 mt-2">
-          Engineering Leadership
-        </p>
-      </div>
-
-      <div class="md:w-3/4">
-        <p class="text-sm font-medium text-espresso-600 dark:text-espresso-300">
-          Architecting testing frameworks, CI/CD governance, AI-assisted migration, and inclusive engineering culture across enterprise retail and fintech.
-        </p>
-      </div>
-    </div>
-
-    <div class="space-y-12">
-      {leadershipExperience.map((job) => (
-        <article class="p-7 sm:p-9 rounded-4xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 shadow-[4px_4px_0px_0px_#EADDC7] dark:shadow-[4px_4px_0px_0px_#281A12] transition-all hover:border-mustard-500 dark:hover:border-mustard-400">
-          <!-- Role Header with Circular Pill Accents -->
-          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 pb-6 border-b-2 border-cream-200 dark:border-espresso-700">
-            <div>
-              <h3 class="text-2xl sm:text-3xl font-serif font-black text-espresso-950 dark:text-cream-50 tracking-tight">
-                {job.role}
-              </h3>
-              <div class="text-lg font-serif font-bold italic text-mustard-600 dark:text-mustard-400 mt-1 flex items-center gap-2">
-                <span>{job.company}</span>
-                <span class="text-xs font-sans not-italic font-bold px-2.5 py-0.5 rounded-full bg-cream-200 dark:bg-espresso-700 text-espresso-700 dark:text-cream-200">
-                  {job.industry}
-                </span>
-              </div>
-            </div>
-
-            <div class="flex sm:flex-col items-baseline sm:items-end gap-1.5 text-xs font-mono">
-              <span class="font-bold text-espresso-950 dark:text-mustard-300 bg-mustard-100 dark:bg-espresso-900 px-3 py-1 rounded-full border border-mustard-300 dark:border-espresso-600">
-                {job.period}
-              </span>
-              <span class="text-espresso-500 dark:text-espresso-400 font-semibold">{job.location}</span>
-            </div>
-          </div>
-
-          <!-- Achievements List with Funky Bullet Circles -->
-          <div class="mt-8 space-y-7">
-            {job.achievements.map((ach) => (
-              <div class="flex items-start gap-3.5">
-                <!-- Concentric circle bullet -->
-                <div class="mt-1.5 w-4 h-4 rounded-full bg-mustard-500 dark:bg-mustard-400 flex items-center justify-center shrink-0 border border-espresso-900">
-                  <div class="w-1.5 h-1.5 rounded-full bg-espresso-950 dark:bg-espresso-900"></div>
-                </div>
-
-                <div class="space-y-2 flex-1">
-                  <h4 class="text-base font-bold text-espresso-950 dark:text-cream-100 tracking-tight">
-                    {ach.title}
-                  </h4>
-                  <p class="text-sm font-normal text-espresso-700 dark:text-espresso-200 leading-relaxed">
-                    {ach.description}
-                  </p>
-
-                  <!-- Tech Tags as Rounded Pills -->
-                  <div class="flex flex-wrap gap-2 pt-1.5">
-                    {ach.tags.map((tag) => (
-                      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cream-200 dark:bg-espresso-900 text-espresso-800 dark:text-mustard-300 border border-cream-300 dark:border-espresso-700 shadow-2xs hover:border-mustard-500 transition-colors">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <!-- PRIOR EXPERIENCE (2007 - 2015) -->
-  <section id="prior-history" class="py-14 border-b-2 border-cream-300 dark:border-espresso-700">
-    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-8">
-      <div class="md:w-1/4">
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-rust-500 text-white">
-          Prior Experience
-        </span>
-        <p class="text-xs font-mono font-bold text-espresso-500 dark:text-espresso-400 mt-2">
-          {previousExperience.period}
-        </p>
-      </div>
-
-      <div class="md:w-3/4">
-        <p class="text-sm font-medium text-espresso-600 dark:text-espresso-300">
-          Core testing fundamentals: hardware/software validation, UAT coordination, national sports technology workflows, and banking POS integrations.
-        </p>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      {previousExperience.roles.map((prev) => (
-        <div class="p-6 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 flex flex-col justify-between hover:border-rust-500 transition-colors">
-          <div>
-            <div class="flex items-baseline justify-between gap-2">
-              <h3 class="font-serif font-black text-espresso-950 dark:text-cream-100 text-lg">
-                {prev.company}
-              </h3>
-              {prev.location && (
-                <span class="text-xs font-mono font-bold text-rust-600 dark:text-rust-400 bg-rust-100 dark:bg-espresso-900 px-2.5 py-0.5 rounded-full border border-rust-300 dark:border-espresso-700">
-                  {prev.location}
-                </span>
-              )}
-            </div>
-            <p class="text-xs font-mono font-bold text-mustard-600 dark:text-mustard-400 mt-1">
-              {prev.role}
-            </p>
-            <p class="text-xs font-normal text-espresso-700 dark:text-espresso-300 mt-3 leading-relaxed">
-              {prev.description}
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- PROFESSIONAL DEVELOPMENT & CERTIFICATIONS -->
-  <section id="certifications" class="py-14">
-    <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-10">
-      <div class="md:w-1/4">
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-avocado-500 text-white">
-          Qualifications
-        </span>
-        <p class="text-xs font-bold text-espresso-500 dark:text-espresso-400 mt-2">
-          Certifications & Learning
-        </p>
-      </div>
-
-      <div class="md:w-3/4">
-        <p class="text-sm font-medium text-espresso-600 dark:text-espresso-300">
-          Recognized test analyst certifications paired with ongoing engineering skill development in accessibility and modern web architectures.
-        </p>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- ISTQB Certifications Card -->
-      <div class="p-7 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center gap-2.5 mb-5 text-xs font-mono font-bold uppercase tracking-wider text-mustard-600 dark:text-mustard-400">
-            <div class="w-6 h-6 rounded-full bg-mustard-500 text-espresso-950 flex items-center justify-center">
-              <Award class="w-3.5 h-3.5 stroke-[2.5]" />
-            </div>
-            <span>ISTQB Certifications</span>
-          </div>
-
-          <div class="space-y-4">
-            {professionalDevelopment.istqbCertifications.map((cert) => (
-              <div class="border-l-4 border-mustard-500 pl-4 py-1">
-                <h3 class="text-sm font-bold text-espresso-950 dark:text-cream-100">
-                  {cert.title}
-                </h3>
-                <p class="text-xs font-mono font-semibold text-espresso-500 dark:text-espresso-400 mt-1">
-                  {cert.year} — {cert.issuer}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <!-- Technical Skill Expansion Card -->
-      <div class="p-7 rounded-3xl bg-cream-50 dark:bg-espresso-800/80 border-2 border-cream-300 dark:border-espresso-700 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center gap-2.5 mb-5 text-xs font-mono font-bold uppercase tracking-wider text-rust-500 dark:text-rust-400">
-            <div class="w-6 h-6 rounded-full bg-rust-500 text-white flex items-center justify-center">
-              <Sparkles class="w-3.5 h-3.5 stroke-[2.5]" />
-            </div>
-            <span>Technical Skill Expansion</span>
-          </div>
-
-          <div class="flex flex-wrap gap-2.5">
-            {professionalDevelopment.technicalSkills.map((skill) => (
-              <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-cream-200 dark:bg-espresso-900 text-espresso-800 dark:text-cream-100 border border-cream-300 dark:border-espresso-700 shadow-sm hover:border-mustard-500 transition-colors">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOTTOM ACTION BANNER -->
-  <section class="mt-8 p-8 sm:p-10 rounded-4xl bg-gradient-to-r from-mustard-500 via-mustard-400 to-rust-400 text-espresso-950 border-3 border-espresso-900 shadow-[6px_6px_0px_0px_#281A12] flex flex-col sm:flex-row items-center justify-between gap-6">
-    <div class="space-y-1.5 text-center sm:text-left">
-      <div class="flex items-center justify-center sm:justify-start gap-2">
-        <span class="w-3 h-3 rounded-full bg-espresso-950"></span>
-        <span class="text-xs font-mono font-bold uppercase tracking-widest text-espresso-900">
-          Always In Sync
-        </span>
-      </div>
-      <h3 class="font-serif font-black text-2xl sm:text-3xl text-espresso-950 tracking-tight">
-        Download Cam's Resume
-      </h3>
-    </div>
-
-    <div class="flex items-center gap-3 shrink-0">
-      <a
-        href="/resume.pdf"
-        download="Cam McOrist - Resume.pdf"
-        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-espresso-950 text-cream-50 font-bold text-xs sm:text-sm hover:bg-espresso-800 transition-all shadow-md"
-      >
-        <Download class="w-4 h-4 stroke-[2.5]" />
-        <span>Download PDF</span>
-      </a>
-
-      <a
-        href="/resume.docx"
-        download="Cam McOrist - Resume.docx"
-        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-cream-50 text-espresso-950 border-2 border-espresso-950 font-bold text-xs sm:text-sm hover:bg-cream-200 transition-all shadow-md"
-      >
-        <FileText class="w-4 h-4 text-rust-500 stroke-[2.5]" />
-        <span>Download Word</span>
-      </a>
-    </div>
+    <Sunrise class="block w-full max-w-4xl mx-auto mt-12 sm:mt-16 -mb-px" />
   </section>
 </Layout>

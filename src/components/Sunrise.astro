@@ -1,0 +1,26 @@
+---
+/** Concentric half-circle sunrise: five arched bands around a sun. */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+const cx = 500;
+const cy = 500;
+const w = 46;
+const r0 = 190;
+// outermost first
+const colors = ['var(--s5)', 'var(--s4)', 'var(--s3)', 'var(--s2)', 'var(--s1)'];
+const bands = colors.map((c, i) => ({ c, rho: r0 + w * (4 - i) + w / 2 }));
+---
+
+<svg class={className} viewBox="0 0 1000 500" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+  {bands.map(({ c, rho }) => (
+    <path
+      d={`M ${cx - rho} ${cy} A ${rho} ${rho} 0 0 1 ${cx + rho} ${cy}`}
+      fill="none"
+      stroke={c}
+      stroke-width={w + 0.6}
+    />
+  ))}
+  <path d={`M ${cx - 150} ${cy} A 150 150 0 0 1 ${cx + 150} ${cy} Z`} fill="var(--s1)" />
+</svg>

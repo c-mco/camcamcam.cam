@@ -1,0 +1,24 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  kicker?: string;
+  id?: string;
+}
+const { num, title, kicker, id } = Astro.props;
+---
+
+<header class="flex items-end gap-4 sm:gap-6 mb-10 sm:mb-14">
+  <span class="outline-num font-display leading-[0.8] text-[clamp(4.5rem,14vw,9rem)] select-none" aria-hidden="true">
+    {num}
+  </span>
+  <div class="pb-2 min-w-0">
+    {kicker && (
+      <p class="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-ink-muted mb-2">{kicker}</p>
+    )}
+    <h2 id={id} class="font-display text-[clamp(2.25rem,6vw,4rem)] leading-[0.95] tracking-tight">
+      {title}
+    </h2>
+    <div class="stripes-h h-5 sm:h-6 w-40 sm:w-56 mt-4 rounded-r-full"></div>
+  </div>
+</header>

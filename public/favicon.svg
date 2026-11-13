@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <!-- Outer warm mustard circle -->
-  <circle cx="24" cy="24" r="23" fill="#D99B26" stroke="#281A12" stroke-width="2"/>
-  <!-- Middle concentric circle -->
-  <circle cx="24" cy="24" r="19" fill="#281A12"/>
-  <!-- Inner cream circle ring -->
-  <circle cx="24" cy="24" r="16.5" stroke="#FAF4E8" stroke-width="1.2" stroke-dasharray="2 2"/>
-  <!-- Retro Monogram CM -->
-  <text x="24" y="30" font-family="'Outfit', 'Fraunces', sans-serif" font-size="16" font-weight="800" fill="#FAF4E8" text-anchor="middle" letter-spacing="-0.5">CM</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="12" fill="#24140A"/>
+  <g fill="none" stroke-width="5">
+    <path d="M0 43.5 H10 A33.5 33.5 0 0 0 43.5 10 V0" stroke="#4A2410" transform="translate(0 0)"/>
+    <path d="M0 38.5 H10 A28.5 28.5 0 0 0 38.5 10 V0" stroke="#B83A1C"/>
+    <path d="M0 33.5 H10 A23.5 23.5 0 0 0 33.5 10 V0" stroke="#E06A27"/>
+    <path d="M0 28.5 H10 A18.5 18.5 0 0 0 28.5 10 V0" stroke="#EC9A29"/>
+    <path d="M0 23.5 H10 A13.5 13.5 0 0 0 23.5 10 V0" stroke="#F3C443"/>
+  </g>
 </svg>

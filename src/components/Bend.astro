@@ -1,0 +1,52 @@
+---
+/**
+ * Supergraphic "bend": five parallel stripes that run in from the far left,
+ * sweep around a quarter-circle and climb off the top. A concentric sun sits
+ * cradled in the corner. Arms extend beyond the SVG box (overflow: visible),
+ * so position the SVG at the bottom-right of an overflow-hidden parent.
+ */
+interface Props {
+  w: number; // stripe width (px)
+  r: number; // inner radius of the bend (px)
+  mR?: number; // gap from the right edge
+  sun?: boolean;
+  class?: string;
+}
+
+const { w, r, mR = 0, sun = true, class: className = '' } = Astro.props;
+const n = 5;
+const size = r + n * w;
+const width = size + mR;
+const height = size;
+const far = 6000;
+// innermost (gold) to outermost (brown)
+const colors = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)'];
+const bands = colors.map((c, i) => ({ c, rho: r + w * i + w / 2 }));
+const sunR = r * 0.78;
+---
+
+<svg
+  class={className}
+  width={width}
+  height={height}
+  viewBox={`0 0 ${width} ${height}`}
+  overflow="visible"
+  aria-hidden="true"
+  focusable="false"
+>
+  {bands.map(({ c, rho }) => (
+    <path
+      d={`M ${-far} ${rho} L 0 ${rho} A ${rho} ${rho} 0 0 0 ${rho} 0 L ${rho} ${-far}`}
+      fill="none"
+      stroke={c}
+      stroke-width={w + 0.6}
+    />
+  ))}
+  {sun && (
+    <g>
+      <circle cx="0" cy="0" r={sunR} fill="var(--s4)" />
+      <circle cx="0" cy="0" r={sunR * 0.72} fill="var(--s3)" />
+      <circle cx="0" cy="0" r={sunR * 0.44} fill="var(--s1)" />
+    </g>
+  )}
+</svg>
