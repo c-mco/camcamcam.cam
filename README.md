@@ -78,13 +78,15 @@ You only ever need to edit **one file**:
 src/data/resume.yaml
 ```
 
-Whenever you push to GitHub, the automated GitHub Action will rebuild the site and re-render both the PDF and DOCX downloads!
+Whenever you push to `main`, Cloudflare rebuilds the site and re-renders both the PDF and DOCX downloads.
 
 ---
 
 ## ☁️ Deployment to Cloudflare Pages (`camcamcam.cam`)
 
-### Option A: Cloudflare Dashboard (Recommended & Easiest)
+**How it works today:** the site is connected to Cloudflare via its Git integration (Workers Builds project `camcamcam-cam`). Every push to `main` is built and published by Cloudflare automatically. The GitHub Action (`.github/workflows/deploy.yml`) only checks that the build passes; it does not deploy.
+
+### Initial setup (already done)
 1. Push this repository to GitHub.
 2. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/) ➔ **Workers & Pages** ➔ **Create application** ➔ **Pages** ➔ **Connect to Git**.
 3. Select this repo and configure build settings:
@@ -95,11 +97,6 @@ Whenever you push to GitHub, the automated GitHub Action will rebuild the site a
      - `NODE_VERSION`: `24`
 4. Click **Save and Deploy**.
 5. Go to **Custom domains** in your Cloudflare Pages project and add `camcamcam.cam`. Cloudflare will automatically provision SSL certificates.
-
-### Option B: GitHub Actions (Automated CI/CD)
-The `.github/workflows/deploy.yml` workflow is pre-configured. Simply add two secrets in your GitHub repository (**Settings** ➔ **Secrets and variables** ➔ **Actions**):
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
 
 ---
 
